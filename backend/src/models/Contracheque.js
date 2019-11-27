@@ -8,7 +8,20 @@ var Contracheque = function(contracheque) {
     this.arquivo_endereco = contracheque.arquivo_endereco;
 };
 Contracheque.createContracheque = function(newContracheque, result) {
-    sql.query("INSERT INTO contracheques set ?", newContracheque, function(
+    sql.query("INSERT INTO contracheque set ?", newContracheque, function(
+        err,
+        res
+    ) {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+        } else {
+            result(null, res.insertId);
+        }
+    });
+};
+Contracheque.getContrachequeByCpf = function(cpf, result) {
+    sql.query("Select * from contracheque where cpf = ? ", cpf, function(
         err,
         res
     ) {
@@ -17,30 +30,17 @@ Contracheque.createContracheque = function(newContracheque, result) {
             result(err, null);
         } else {
             console.log(res);
-            result(null, res.insertId);
-        }
-    });
-};
-Contracheque.getContrachequeByCpf = function(cpf, result) {
-    sql.query("Select * from contracheques where cpf = ? ", cpf, function(
-        err,
-        res
-    ) {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-        } else {
             result(null, res);
         }
     });
 };
 Contracheque.getAllContracheque = function(result) {
-    sql.query("Select * from contracheques", function(err, res) {
+    sql.query("Select * from contracheque", function(err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
         } else {
-            console.log("contracheques : ", res);
+            console.log("contracheque : ", res);
 
             result(null, res);
         }
@@ -52,11 +52,11 @@ Contracheque.getContrachequeByCpfandDate = function(
     result
 ) {
     sql.query(
-        "Select * from contracheques where cpf = ? and data_referencia = ?", [cpf, data_referencia],
+        "Select * from contracheque where cpf = ? and data_referencia = ?", [cpf, data_referencia],
         function(err, res) {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
             } else {
                 result(null, res);
             }
@@ -64,13 +64,10 @@ Contracheque.getContrachequeByCpfandDate = function(
     );
 };
 Contracheque.remove = function(id, result) {
-    sql.query("DELETE FROM contracheques WHERE cpf = ?", [id], function(
-        err,
-        res
-    ) {
+    sql.query("DELETE FROM contracheque WHERE cpf = ?", [id], function(err, res) {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
         } else {
             result(null, res);
         }

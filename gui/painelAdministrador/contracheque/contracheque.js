@@ -6,7 +6,6 @@
 
     var dropZone = document.getElementById("drop-zone");
     var uploadPDF = document.getElementById("uploadPDF");
-    var uploadForm = document.getElementById("uploadForm");
 
     dropZone.addEventListener("click", function(e) {
         self.procuraArquivoExplorador();
@@ -15,8 +14,7 @@
     uploadPDF.addEventListener("change", function(e) {
         e.preventDefault();
         var uploadFiles = document.getElementById("uploadPDF").files;
-        var formdata = document.getElementById("uploadForm").form;
-        self.startUpload(formdata, uploadFiles);
+        self.startUpload(uploadFiles);
         return false;
     });
 
@@ -38,29 +36,34 @@
     };
 });
 
-function startUpload(form, files) {
-    var formData = new FormData(form);
+function startUpload(files) {
+    var formData = new FormData();
     for (var i = 0; i < files.length; i++) {
         formData.append(files[i].name, files[i]);
     }
-    for (var [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3333/upload", false);
-    xhr.onload = function(event) {
-        console.log(xhr.responseText);
+    xhr.open("POST", "http://localhost:3333/upload", true);
+
+    var progressBar = document.querySelector(".progress-bar");
+
+    xhr.upload.onprogress = function(e) {
+        console.log(e.loaded, e.total);
+        if (e.lengthComputable) {
+            var percentage = (e.loaded / e.total) * 100;
+            console.log(percentage + "%");
+            progressBar.setAttribute("style", "width = " + percentage + "%");
+        }
     };
     // xhr.setRequestHeader("Content-Type", "multipart/form-data");
-    xhr.setRequestHeader("Content-Type", "application/pdf");
+    xhr.onload = function(event) {
+        console.log(this.statusText);
+    };
+    xhr.onerror = function(event) {
+        console.log(event);
+    };
     xhr.send(formData);
+    return false;
 }
-
-document.getElementById("uploadForm").onsubmit = function(e) {
-    e.preventDefault();
-    // AJAX here
-    console.log("form submission intercepted");
-};
 
 function procuraArquivoExplorador() {
     $("#uploadPDF").trigger("click");

@@ -1,31 +1,24 @@
 const User = require("../models/User");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
     async login(req, res) {
         const credentials = req.body;
 
-        if (error) return res.status(400).send(error.detailt[0].message);
+        const user = User.getUserByCpf(credentials.username, (err, user) => {
+            if (err) return res.status(401).send("Usuário ou senha inválidos");
 
-        const user = await User.findOne({
-            username: credentials.username
-        }).select("+password");
+            user = user[0];
+            if (!(credentials.password == user.senha))
+                return res.status(401).send("Usuário ou senha inválidos");
 
-        if (!user)
-            return res.json({ ok: false, message: "Usuário ou senha inválidos" });
-
-        const validPassword = await bcrypt.compare(
-            credentials.password,
-            user.password
-        );
-        if (!validPassword)
-            return res.status(400).send("Usuário ou senha inválidos");
-
-        //Create token
-        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-        res.header("auth-token", token);
-
-        return res.json({ ok: true, token: token });
+            //Create token
+            var token = null;
+            if (user.departamento == 0) {
+                token = jwt.sign({ id: user.cpf }, process.env.TOKEN_SECRET);
+                res.header("auth-token", token);
+            }
+            return res.json({ ok: true, token: token });
+        });
     }
 };

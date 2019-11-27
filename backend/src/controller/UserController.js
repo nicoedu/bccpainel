@@ -39,7 +39,7 @@ exports.update_a_user = function(req, res) {
             res.status(400).send(err);
             return;
         }
-        res.json(user);
+        res.status(200).json(user);
     });
 };
 
@@ -49,6 +49,6 @@ exports.delete_a_user = function(req, res) {
             res.status(400).send(err);
             return;
         }
-        res.json({ message: "User successfully deleted" });
+        res.status(200).json({ message: "Usuário desativado com sucesso" });
     });
 };
