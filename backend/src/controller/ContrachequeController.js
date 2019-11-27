@@ -1,0 +1,63 @@
+"use strict";
+const Contracheque = require("../models/Contracheque");
+
+exports.list_all_contracheques = function(req, res) {
+    Contracheque.getAllContracheque(function(err, contracheque) {
+        console.log("controller");
+        if (err) res.send(err);
+        console.log("res", contracheque);
+        res.send(contracheque);
+    });
+};
+
+exports.create_a_contracheque = function(req, res) {
+    var new_contracheque = new Contracheque(req.body);
+    //handles null error
+    Contracheque.createContracheque(new_contracheque, function(
+        err,
+        contracheque
+    ) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+
+        res.status(200).json(contracheque);
+    });
+};
+
+exports.read_a_contracheque = function(req, res) {
+    Contracheque.getContrachequeByCpf(req.query.cpf, req.params.data, function(
+        err,
+        contracheque
+    ) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.status(200).json(contracheque);
+    });
+};
+
+exports.update_a_contracheque_date = function(req, res) {
+    Contracheque.getContrachequeByCpfandDate(req.query, function(
+        err,
+        contracheque
+    ) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.json(contracheque);
+    });
+};
+
+exports.delete_a_contracheque = function(req, res) {
+    Contracheque.remove(req.query.cpf, function(err, contracheque) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.json({ message: "Contracheque successfully deleted" });
+    });
+};

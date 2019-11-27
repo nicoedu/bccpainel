@@ -3,26 +3,28 @@
 
 <head>
     <title>Painel</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="../dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../dist/css/fontawesome.min.css" />
+    <link href="login.css" rel="stylesheet" />
+    <link href="../custom.css" rel="stylesheet" />
 </head>
 
 <body>
-
     <div class="wrapper">
         <form class="form-signin">
-            <h2 class="form-signin-heading">Entre com seu usuário e senha</h2>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" required autofocus/>
+            <h2 class="form-signin-heading">Acesso Portal</h2>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" required autofocus />
             <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required />
-            <label class="checkbox">
-        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Lembra-se de mim 
-      </label>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+
+            <button class="btn btn-blue" type="submit">
+          Entrar
+        </button>
         </form>
     </div>
-
+    <script src="../dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

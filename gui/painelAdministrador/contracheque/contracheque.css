@@ -1,4 +1,9 @@
-/* layout.css Style */
+.wrapper {
+    padding-top: 10vh;
+    height: 90vh;
+    background: #fff;
+    padding: 10vh 10vw;
+}
 
 .upload-drop-zone {
     height: 200px;
@@ -10,9 +15,10 @@
 /* skin.css Style*/
 
 .upload-drop-zone {
-    color: #ccc;
+    color: #999;
     border-style: dashed;
     border-color: #ccc;
+    border-radius: 20px;
     line-height: 200px;
     text-align: center
 }
@@ -22,6 +28,6 @@
     border-color: #222;
 }
 
-#uploadPDF {
+#uploadForm {
     display: none;
 }

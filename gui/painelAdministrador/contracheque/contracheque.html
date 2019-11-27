@@ -2,43 +2,77 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
 
     <title>Painel do Administrador</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css" />
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="../../dist/css/fontawesome.min.css">
-    <link href="contracheque.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../dist/css/fontawesome.min.css" />
+    <link href="contracheque.css" rel="stylesheet" />
+    <link href="../../custom.css" rel="stylesheet" />
 </head>
 
 <body>
-
-    <!--TODO adicionar navbar -->
+    <nav class="navbar navbar-expand-lg nav-bg-blue">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" /> BBC
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarSite">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../home/home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contracheques</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../noticia/noticia.html">Notícias</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading"><strong>Carregar Contracheque</strong> <small>Carregamento de arquivos de contracheque</small></div>
-            <div class="panel-body">
-
-                <div class="upload-drop-zone" id="drop-zone">
-                    Arraste os arquivos ou clique aqui
+        <div class="wrapper">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Carregar Contracheque</h2>
+                    <p>Carregamento de arquivos de contracheque</p>
                 </div>
-
+                <div class="panel-body">
+                    <div class="upload-drop-zone" id="drop-zone">
+                        Arraste os arquivos ou clique aqui
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div>
+                    <p>some text</p>
+                </div>
             </div>
-            <!-- /.container -->
         </div>
     </div>
-    <input id="uploadPDF" type="file" value="upload" class="uploadFile" accept="application/pdf" />
-
-
-
+    <form onsubmit="return false" id="uploadForm" enctype="multipart/form-data">
+        <input id="uploadPDF" type="file" name="file" accept="application/pdf" multiple />
+    </form>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -46,7 +80,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="contracheque.js"></script>
 </body>
 

@@ -1,0 +1,29 @@
+.wrapper {
+    padding-top: 10vh;
+    height: 90vh;
+}
+
+.col {
+    align-items: center;
+}
+
+.painel-item {
+    margin: 2vh auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height: 20vh;
+    align-items: center;
+    align-content: center;
+    max-width: 150px;
+    max-height: 160px;
+}
+
+.painel-item img {
+    margin: 10%;
+    width: 100%;
+}
+
+.painel-item p {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 25%;
+}

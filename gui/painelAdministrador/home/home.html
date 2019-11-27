@@ -2,56 +2,81 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
 
     <title>Painel do Administrador</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css" />
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="../../dist/css/fontawesome.min.css">
-    <link href="home.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../dist/css/fontawesome.min.css" />
+    <link href="home.css" rel="stylesheet" />
+    <link href="../../custom.css" rel="stylesheet" />
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> BBC
-        </a>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="../contracheque/contracheque.html">Home</a>
+    <nav class="navbar navbar-expand-lg nav-bg-blue">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" /> BBC
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarSite">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../contracheque/contracheque.html">Contracheques</a
+              >
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Notícias</a>
+              <a class="nav-link" href="../contracheque/noticia.html"
+                >Notícias</a
+              >
             </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
-            </li>
-        </ul>
+              <a class="nav-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <div class="container">
-
-        <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+    <div class="container bg-white">
+        <div class="wrapper">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="painel-item" onclick="toContracheque()">
+                        <img src="smiley.jpg" alt="Smiley face" />
+                        <p>Contracheques</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="painel-item" onclick="toNoticia()">
+                        <img src="smiley.jpg" alt="Smiley face" />
+                        <p>Notícias</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="painel-item" onclick="toConta()">
+                        <img src="smiley.jpg" alt="Smiley face" />
+                        <p>Minha Conta</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
     <!-- /.container -->
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -59,8 +84,6 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="home.js"></script>
 </body>
 
