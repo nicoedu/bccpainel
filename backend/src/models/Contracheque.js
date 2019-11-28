@@ -1,4 +1,4 @@
-"contracheque strict";
+"use strict";
 var sql = require("../db.js");
 
 //Contracheque object constructor

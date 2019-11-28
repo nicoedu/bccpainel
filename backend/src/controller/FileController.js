@@ -1,4 +1,5 @@
 const fs = require("fs");
+const pdfHandler = require("../util/pdfHandler");
 
 module.exports = {
     save_file(req, res) {
@@ -12,7 +13,7 @@ module.exports = {
                     );
                     file.pipe(fstream);
                     fstream.on("close", function() {
-                        resolve(true);
+                        resolve({ sucess: true, filename: filename });
                     });
                     fstream.on("error", function(err) {
                         console.log(err);
@@ -20,8 +21,13 @@ module.exports = {
                     });
                 });
             })
-            .then((success, error) => {
-                if (success) {
+            .then(resolve => {
+                if (resolve.sucess) {
+                    pdfHandler.pdfLoader(
+                        "/home/nicoedu/Documents/BBC/meu/backend/uploads/" +
+                        resolve.filename,
+                        "/home/nicoedu/Documents/BBC/meu/backend/src/util/output/"
+                    );
                     return res.status(200).send("top");
                 } else {
                     return res.status(400).send(error);

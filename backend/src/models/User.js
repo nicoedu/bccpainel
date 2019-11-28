@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 var sql = require("../db.js");
 
 //User object constructor
@@ -12,7 +12,7 @@ var User = function(user) {
 User.createUser = function(newUser, result) {
     sql.query("INSERT INTO colaborador set ?", newUser, function(err, res) {
         if (err) {
-            console.log("error: ", err);
+            console.log("error: ", err.errno);
             result(err, null);
         } else {
             console.log(res);
