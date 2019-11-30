@@ -3,23 +3,20 @@ const Noticia = require("../models/Noticia");
 
 exports.list_all_noticias = function(req, res) {
     Noticia.getAllNoticia(function(err, noticia) {
-        console.log("controller");
         if (err) res.send(err);
-        console.log("res", noticia);
         res.send(noticia);
     });
 };
 
 exports.list_noticias_by_dept = function(req, res) {
-    Noticia.getAllNoticiaByDepartamento(req.params.departamento, function(
-        err,
-        noticia
-    ) {
-        console.log("controller");
-        if (err) res.send(err);
-        console.log("res", noticia);
-        res.send(noticia);
-    });
+    Noticia.getAllNoticiaByDepartamento(
+        req.params.departamento,
+        req.query.include,
+        function(err, noticia) {
+            if (err) res.send(err);
+            res.send(noticia);
+        }
+    );
 };
 
 exports.create_a_noticia = function(req, res) {
@@ -36,7 +33,7 @@ exports.create_a_noticia = function(req, res) {
 };
 
 exports.read_a_noticia = function(req, res) {
-    Noticia.getNoticiaByid(req.query.id, function(err, noticia) {
+    Noticia.getNoticiaById(req.query.id, function(err, noticia) {
         if (err) {
             res.status(400).send(err);
             return;

@@ -13,13 +13,13 @@ exports.list_all_users = function(req, res) {
 exports.create_a_user = function(req, res) {
     var new_user = new User(req.body);
     //handles null error
-    User.createUser(new_user, function(err, user) {
+    User.createUser(new_user, function(err, sucess) {
         if (err) {
             res.status(400).send(err);
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).send(sucess);
     });
 };
 

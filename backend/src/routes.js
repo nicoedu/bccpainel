@@ -5,6 +5,7 @@ const ContrachequeController = require("./controller/ContrachequeController");
 const NoticiaController = require("./controller/NoticiaController");
 const AuthController = require("./controller/AuthController");
 const FileController = require("./controller/FileController");
+const DepartamentoController = require("./controller/DepartamentoController");
 const verifyToken = require("./verifyToken");
 
 const routes = express.Router();
@@ -40,6 +41,11 @@ routes.delete("/noticia", verifyToken, NoticiaController.delete_a_noticia);
 routes.post("/noticia/edit", verifyToken, NoticiaController.update_a_noticia);
 
 //Routes to filesupload
-routes.post("/upload", busboy(), FileController.save_file);
+routes.post("/upload", busboy(), FileController.save_pdf);
+routes.post("/image", busboy(), FileController.save_image);
+
+//Routes to departamento
+routes.get("/departamentos", DepartamentoController.list_all_departamentos);
+routes.get("/departamento", DepartamentoController.read_a_departamento);
 
 module.exports = routes;

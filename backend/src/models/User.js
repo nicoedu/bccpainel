@@ -12,11 +12,10 @@ var User = function(user) {
 User.createUser = function(newUser, result) {
     sql.query("INSERT INTO colaborador set ?", newUser, function(err, res) {
         if (err) {
-            console.log("error: ", err.errno);
+            console.log("error: ", err);
             result(err, null);
         } else {
-            console.log(res);
-            result(null, res.insertId);
+            result(null, true);
         }
     });
 };
@@ -36,8 +35,6 @@ User.getAllUser = function(result) {
             console.log("error: ", err);
             result(err, null);
         } else {
-            console.log("users : ", res);
-
             result(null, res);
         }
     });

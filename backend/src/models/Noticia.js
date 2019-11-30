@@ -5,6 +5,7 @@ var sql = require("../db.js");
 var Noticia = function(noticia) {
     this.titulo = noticia.titulo;
     this.texto = noticia.texto;
+    noticia.postado_em = new Date().getTime().toString();
     this.postado_em = noticia.postado_em;
     this.departamento = noticia.departamento;
     this.postado_por = noticia.postado_por;
@@ -16,7 +17,6 @@ Noticia.createNoticia = function(newNoticia, result) {
             console.log("error: ", err);
             result(err, null);
         } else {
-            console.log(res);
             result(null, res.insertId);
         }
     });
@@ -40,27 +40,31 @@ Noticia.getAllNoticia = function(result) {
             console.log("error: ", err);
             result(err, null);
         } else {
+            result(null, res);
+        }
+    });
+};
+Noticia.getAllNoticiaByDepartamento = function(
+    departamento,
+    includeAllDepartament,
+    result
+) {
+    includeAllDepartament
+        ?
+        (query =
+            "Select * from noticia where departamento like '%?%' or departamento IS NULL") :
+        (query = "Select * from noticia where departamento like '%?%'");
+
+    sql.query(query, '"' + departamento + '"', function(err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+        } else {
             console.log("noticias : ", res);
 
             result(null, res);
         }
     });
-};
-Noticia.getAllNoticiaByDepartamento = function(departamento, result) {
-    sql.query(
-        "Select * from noticia where departamento = ?",
-        departamento,
-        function(err, res) {
-            if (err) {
-                console.log("error: ", err);
-                result(err, null);
-            } else {
-                console.log("noticias : ", res);
-
-                result(null, res);
-            }
-        }
-    );
 };
 Noticia.updateById = function(id, noticia, result) {
     sql.query(

@@ -25,7 +25,7 @@ const pdfLoader = async(pdf_url, folder_url) => {
             console.log(
                 "Extração realizada com sucesso, iniciando inserção no banco de dados"
             );
-            pageData.map(({ employee, date, page }) => {
+            pageData.map(({ employee, departament, date, page }) => {
                 //filesPromises.push(savePdf(folder_url, pdf_url, employee, date, page));
                 let filename =
                     employee.matricula.replace(/^0+/, "") + date.toString() + ".pdf";
@@ -36,7 +36,11 @@ const pdfLoader = async(pdf_url, folder_url) => {
                 };
 
                 insertPromisses.push(
-                    pdfDataController.insertIntoDatabase(employee, contracheque)
+                    pdfDataController.insertIntoDatabase(
+                        employee,
+                        departament,
+                        contracheque
+                    )
                 );
             });
             Promise.all(insertPromisses).catch(err => console.log(err));
@@ -58,7 +62,7 @@ function pageTextHandler(pageNum, PDFDocumentInstance) {
                         //variavel que aguarda o momento em que os dados relevantes apareçam
                         isRelevant = false;
 
-                        let employee = {};
+                        let employeeAndDpt = {};
                         let date = {};
 
                         //Variável temporária para salvar um indice
@@ -77,14 +81,19 @@ function pageTextHandler(pageNum, PDFDocumentInstance) {
                                     }
                                 } else {
                                     if (textItems[index].str.startsWith("Admiss")) {
-                                        employee = getEmployeeData(
+                                        employeeAndDpt = getEmployeeAndDepartamentData(
                                             textItems.slice(indiceTemp, index)
                                         );
                                         continue;
                                     }
                                     if (textItems[index].str.match(regexDate)) {
                                         date = getDate(textItems[index].str);
-                                        resolve({ employee: employee, date: date, page: pageNum });
+                                        resolve({
+                                            employee: employeeAndDpt.empregado,
+                                            departament: employeeAndDpt.departamento,
+                                            date: date,
+                                            page: pageNum
+                                        });
                                         break;
                                     }
                                     continue;
@@ -116,8 +125,9 @@ function savePdf(folder_url, pdf_url, employee, date, page) {
     });
 }
 
-function getEmployeeData(arrayDados) {
+function getEmployeeAndDepartamentData(arrayDados) {
     var empregado = {};
+    var departamento = {};
     //Retirar dados não relacionados ao funcionário
     arrayDados = arrayDados.filter(data => data.height < 8).map(data => data.str);
     empregado.matricula = arrayDados[0];
@@ -127,8 +137,12 @@ function getEmployeeData(arrayDados) {
         .split(" ")[1]
         .replace(/\./g, "")
         .replace("-", "");
-    empregado.departamento = parseInt(arrayDados[5].split(" ")[1]);
-    return empregado;
+    departamentoData = arrayDados[5].split(" ");
+    empregado.departamento = departamentoData[1];
+
+    departamento.id = departamentoData[1];
+    departamento.nome = departamentoData.slice(3).join(" ");
+    return { empregado, departamento };
 }
 
 function getDate(dateString) {
