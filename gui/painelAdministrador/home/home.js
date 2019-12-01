@@ -1,7 +1,13 @@
-$(function() {
-    $("#navbar").load("../general/navbar.html");
-});
+$(function() {});
 
 function toContracheque() {
-    console.log("clicked");
+    window.location = "../contracheque/contracheque.html";
+}
+
+function toNoticia() {
+    window.location = "../noticia/noticia.html";
+}
+
+function toConta() {
+    window.location = "../usuario/usuario.html";
 }

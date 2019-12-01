@@ -24,6 +24,7 @@ exports.create_a_user = function(req, res) {
 };
 
 exports.read_a_user = function(req, res) {
+    console.log(req.query);
     User.getUserByCpf(req.query.cpf, function(err, user) {
         if (err) {
             res.status(400).send(err);
@@ -34,7 +35,10 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
-    User.updateByCpf(req.query.cpf, new User(req.body), function(err, user) {
+    User.updatePasswordByCpf(req.query.cpf, req.body.password, function(
+        err,
+        user
+    ) {
         if (err) {
             res.status(400).send(err);
             return;

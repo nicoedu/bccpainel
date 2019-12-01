@@ -1,13 +1,13 @@
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
     //extra html you want to store.
     return (
-        '<div class="card mb-4"><div class="row"><div class="col-4 post-img"><img src="' +
+        '<div class="card mb-4"><div class="row"><div class="col-4 post-img"><img src="/home/nicoedu/Documents/BBC/meu/backend/noticia/' +
         imgsrc +
         '" alt="Card image cap" /></div><div class="col-8 card-body"><h2 class="card-title">' +
         titulo +
         '</h2>           <p class="card-text">                ' +
         texto +
-        '            </p>            <button onclick="getNoticiaPorId(' +
+        '            </p>            <button onclick="gotoNoticia(' +
         idnoticia +
         ')" class="btn btn-blue-simple">Ler mais &rarr;</button>        </div>    </div>    <div class="card-footer text-muted">        Postado ' +
         date +
@@ -51,21 +51,8 @@ function putPost() {
     xhr.send();
 }
 
-function getNoticiaPorId(id) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3333/noticia?id=" + id, true);
-    xhr.onload = function() {
-        console.log(this.responseText);
-        var titulo = document.getElementById("titulo");
-        var texto = document.getElementById("texto");
-        var postado_por = document.getElementById("postado_por");
-        var postado_em = document.getElementById("postado_em");
-        // titulo.innerHTML =
-    };
-    xhr.onerror = function(event) {
-        console.log(event);
-    };
-    xhr.send();
+function gotoNoticia(id) {
+    window.location = "./noticiaPage.html?id=" + id;
 }
 
 $(function() {

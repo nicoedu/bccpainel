@@ -19,7 +19,8 @@ User.createUser = function(newUser, result) {
         }
     });
 };
-User.getUserByCpf = function(cpf, result) {
+
+User.getUserByCpfWithPassword = function(cpf, result) {
     sql.query("Select * from colaborador where cpf = ?", cpf, function(err, res) {
         if (err) {
             console.log("error: ", err);
@@ -28,6 +29,21 @@ User.getUserByCpf = function(cpf, result) {
             result(null, res);
         }
     });
+};
+
+User.getUserByCpf = function(cpf, result) {
+    sql.query(
+        "Select cpf,nome,cargo,matricula,departamento from colaborador where cpf = ?",
+        cpf,
+        function(err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        }
+    );
 };
 User.getAllUser = function(result) {
     sql.query("Select * from colaborador", function(err, res) {
@@ -39,9 +55,9 @@ User.getAllUser = function(result) {
         }
     });
 };
-User.updateByCpf = function(id, user, result) {
+User.updatePasswordByCpf = function(id, password, result) {
     sql.query(
-        "UPDATE colaborador SET user = ? WHERE cpf = ?", [user.user, id],
+        "UPDATE colaborador SET senha = ? WHERE cpf = ?", [password, id],
         function(err, res) {
             if (err) {
                 console.log("error: ", err);

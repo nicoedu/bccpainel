@@ -12,6 +12,7 @@ const routes = express.Router();
 
 //Login
 routes.post("/login", AuthController.login);
+routes.post("/updatePass", AuthController.updatePassword);
 
 //Routes to users
 routes.post("/user", UserController.create_a_user);
