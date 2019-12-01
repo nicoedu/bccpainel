@@ -35,7 +35,7 @@ routes.delete(
 
 //Routes to noticias
 routes.post("/noticia", NoticiaController.create_a_noticia);
-routes.get("/noticia/:departamento", NoticiaController.list_noticias_by_dept);
+routes.get("/noticias/:departamento", NoticiaController.list_noticias_by_dept);
 routes.get("/noticias", NoticiaController.list_all_noticias);
 routes.get("/noticia", NoticiaController.read_a_noticia);
 routes.delete("/noticia", verifyToken, NoticiaController.delete_a_noticia);

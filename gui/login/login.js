@@ -17,7 +17,8 @@ function submitLogin() {
         if (response.token) {
             window.location = "../painelAdministrador/home/home.html";
         } else {
-            window.location = "../painelColaborador/home/home.html";
+            sessionStorage.setItem("departamento", response.departamento);
+            window.location = "../painelColaborador/noticia/noticia.html";
         }
     };
     xhr.onerror = function(event) {

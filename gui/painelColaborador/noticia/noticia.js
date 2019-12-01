@@ -31,8 +31,12 @@ function timestampToDate(timestamp) {
 
 function putPost() {
     var xhr = new XMLHttpRequest();
-    console.log("requesting");
-    xhr.open("GET", "http://localhost:3333/noticias", true);
+    var departamento = sessionStorage.getItem("departamento");
+    xhr.open(
+        "GET",
+        "http://localhost:3333/noticias/" + departamento + "?include=true",
+        true
+    );
 
     var noticiasElement = document.getElementById("noticia");
     xhr.onload = function() {

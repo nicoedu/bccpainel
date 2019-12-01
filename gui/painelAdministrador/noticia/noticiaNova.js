@@ -8,7 +8,7 @@ function sendNoticia() {
     var texto = document.getElementById("texto").value;
     var departamento = $("#departamento").val();
     var postado_por = "admin";
-    departamento.length == 0 ?
+    departamento.length == 0 || departamento == "null" ?
         (departamento = null) :
         (departamento = JSON.stringify(departamento));
 

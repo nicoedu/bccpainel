@@ -20,7 +20,11 @@ module.exports = {
                     token = jwt.sign({ id: user.cpf }, process.env.TOKEN_SECRET);
                     res.header("auth-token", token);
                 }
-                return res.json({ ok: true, token: token });
+                return res.json({
+                    ok: true,
+                    token: token,
+                    departamento: user.departamento
+                });
             }
         );
     },
