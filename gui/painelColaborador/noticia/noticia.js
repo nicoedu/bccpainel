@@ -72,5 +72,8 @@ function gotoNoticia(id) {
 }
 
 $(function() {
+    $.get("../general/navbar.html", function(data) {
+        $("#nav").html(data);
+    });
     putPost();
 });

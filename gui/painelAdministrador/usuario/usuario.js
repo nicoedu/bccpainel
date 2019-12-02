@@ -1,4 +1,7 @@
 $(function() {
+    $.get("../general/navbar.html", function(data) {
+        $("#nav").html(data);
+    });
     getUserByCpf(sessionStorage.getItem("cpf"));
 });
 var usuario = null;

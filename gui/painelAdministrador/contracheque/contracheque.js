@@ -1,6 +1,10 @@
 +jQuery(function($) {
     "use strict";
 
+    $.get("../general/navbar.html", function(data) {
+        $("#nav").html(data);
+    });
+
     // UPLOAD CLASS DEFINITION
     // ======================
 

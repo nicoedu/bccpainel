@@ -68,5 +68,9 @@ function gotoNoticia(id) {
 }
 
 $(function() {
+    // $.get("../general/navbar.html", function(data) {
+    //     $("#nav").html(data);
+    // });
+    console.log("chamando funcao local");
     putPost();
 });

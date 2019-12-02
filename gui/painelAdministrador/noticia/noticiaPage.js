@@ -36,6 +36,9 @@ function getNoticiaPorId(id) {
 }
 
 $(function() {
+    $.get("../general/navbar.html", function(data) {
+        $("#nav").html(data);
+    });
     const url = new URL(window.location.href);
     getNoticiaPorId(url.searchParams.get("id"));
 });

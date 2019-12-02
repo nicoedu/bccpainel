@@ -64,6 +64,9 @@ function getListaDepartamento(callback) {
 }
 
 $(function() {
+    $.get("../general/navbar.html", function(data) {
+        $("#nav").html(data);
+    });
     console.log("jquery");
     getListaDepartamento((sucess, response) => {
         if (sucess) {
