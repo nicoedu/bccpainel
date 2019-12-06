@@ -24,13 +24,13 @@ routes.post("/user/edit", UserController.update_a_user);
 routes.post("/contracheque", ContrachequeController.create_a_contracheque);
 routes.get("/contracheque", ContrachequeController.read_a_contracheque);
 routes.get(
-    "/contracheque/:data",
-    ContrachequeController.read_a_contracheque_date
+  "/contracheque/:data",
+  ContrachequeController.read_a_contracheque_date
 );
 routes.delete(
-    "/contracheque",
-    verifyToken,
-    ContrachequeController.delete_a_contracheque
+  "/contracheque",
+  verifyToken,
+  ContrachequeController.delete_a_contracheque
 );
 
 //Routes to noticias
@@ -44,6 +44,7 @@ routes.post("/noticia/edit", verifyToken, NoticiaController.update_a_noticia);
 //Routes to filesupload
 routes.post("/upload", busboy(), FileController.save_pdf);
 routes.post("/image", busboy(), FileController.save_image);
+routes.get("/downloadpdf", FileController.send_pdf);
 
 //Routes to departamento
 routes.get("/departamentos", DepartamentoController.list_all_departamentos);

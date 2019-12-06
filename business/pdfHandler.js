@@ -61,217 +61,210 @@ Etapas de extração:
 */
 
 import {
-    ItensSalarioModel,
-    FuncionarioDadosModel,
-    ValorTotalModel,
-    BaseCalculoModel,
-    ContrachequeModel
+  ItensSalarioModel,
+  FuncionarioDadosModel,
+  ValorTotalModel,
+  BaseCalculoModel,
+  ContrachequeModel
 } from "./model/modelExport.js";
 
 function getSalaryComposition(arrayItens) {
-    var listSalaryItem = [];
-    var item = null;
-    var position = 0;
-    for (var index = 0; index < arrayItens.length; index++) {
-        var data = arrayItens[index];
-        //Checa se valor é um numero
-        if (!isNaN(data.str)) {
-            //Ignora a primeira interação
-            item == null ? null : listSalaryItem.push(item.toJSON());
-            //Declara novo objeto de modelo
-            item = new ItensSalarioModel(data.str);
-        } else {
-            //Checa se é descrição
-            if (data.transform[4] < 100) {
-                item.descricao = data.str;
-            } else {
-                position = Math.round(data.width + data.transform[4]);
-                //Checa se é referencia
-                if (position < 400) {
-                    item.referencia = data.str;
-                }
-                //Checa se é desconto
-                else if (position > 500) {
-                    item.descontos = data.str;
-                }
-                //Senão é vencimento
-                else {
-                    item.vencimentos = data.str;
-                }
-            }
+  var listSalaryItem = [];
+  var item = null;
+  var position = 0;
+  for (var index = 0; index < arrayItens.length; index++) {
+    var data = arrayItens[index];
+    //Checa se valor é um numero
+    if (!isNaN(data.str)) {
+      //Ignora a primeira interação
+      item == null ? null : listSalaryItem.push(item.toJSON());
+      //Declara novo objeto de modelo
+      item = new ItensSalarioModel(data.str);
+    } else {
+      //Checa se é descrição
+      if (data.transform[4] < 100) {
+        item.descricao = data.str;
+      } else {
+        position = Math.round(data.width + data.transform[4]);
+        //Checa se é referencia
+        if (position < 400) {
+          item.referencia = data.str;
         }
+        //Checa se é desconto
+        else if (position > 500) {
+          item.descontos = data.str;
+        }
+        //Senão é vencimento
+        else {
+          item.vencimentos = data.str;
+        }
+      }
     }
-    //Adiciona ultimo item lido ao array
-    listSalaryItem.push(item.toJSON());
-    console.log(listSalaryItem);
+  }
+  //Adiciona ultimo item lido ao array
+  listSalaryItem.push(item.toJSON());
+  console.log(listSalaryItem);
 }
 
 function toTimestamp(dateStr) {
-    var parts = dateStr.split("/");
-    var date = new Date(parts[2], parts[1] - 1, parts[0]);
-    return date.getTime() / 1000;
+  var parts = dateStr.split("/");
+  var date = new Date(parts[2], parts[1] - 1, parts[0]);
+  return date.getTime() / 1000;
 }
 
 function getEmployeeData(arrayDados) {
-    var empregado = new FuncionarioDadosModel();
-    //Retirar dados não relacionados ao funcionário
-    arrayDados = arrayDados.filter(data => data.height < 8).map(data => data.str);
-    empregado.matricula = arrayDados[0];
-    empregado.nome = arrayDados[1];
-    empregado.cargo = arrayDados[2];
-    empregado.cbo = arrayDados[3];
-    empregado.banco = arrayDados[6];
-    empregado.cpf = arrayDados[4]
-        .split(" ")[1]
-        .replace(/\./g, "")
-        .replace("-", "");
-    empregado.departamento = arrayDados[5].split(" ")[1];
-    empregado.admissao = toTimestamp(arrayDados[7].split(" ")[1]);
-    console.log(empregado.toJSON());
+  var empregado = new FuncionarioDadosModel();
+  //Retirar dados não relacionados ao funcionário
+  arrayDados = arrayDados.filter(data => data.height < 8).map(data => data.str);
+  empregado.matricula = arrayDados[0];
+  empregado.nome = arrayDados[1];
+  empregado.cargo = arrayDados[2];
+  empregado.cbo = arrayDados[3];
+  empregado.banco = arrayDados[6];
+  empregado.cpf = arrayDados[4]
+    .split(" ")[1]
+    .replace(/\./g, "")
+    .replace("-", "");
+  empregado.departamento = arrayDados[5].split(" ")[1];
+  empregado.admissao = toTimestamp(arrayDados[7].split(" ")[1]);
+  console.log(empregado.toJSON());
 }
 
 function getDate(dateString) {
-    var data = toTimestamp(
-        dateString.split(" ").filter(value => value.length > 0)[1]
-    );
-    console.log(data);
+  var data = toTimestamp(
+    dateString.split(" ").filter(value => value.length > 0)[1]
+  );
+  console.log(data);
 }
 
 function getTotalSalaryValues(arrayValues) {
-    arrayValues = arrayValues.map(data => data.str);
-    var total = new ValorTotalModel();
-    total.vencimentos = arrayValues[0];
-    total.descontos = arrayValues[1];
-    total.liquido = arrayValues[2];
-    console.log(total.toJSON());
+  arrayValues = arrayValues.map(data => data.str);
+  var total = new ValorTotalModel();
+  total.vencimentos = arrayValues[0];
+  total.descontos = arrayValues[1];
+  total.liquido = arrayValues[2];
+  console.log(total.toJSON());
 }
 
 function getSalaryBasesCalc(arrayValues) {
-    arrayValues = arrayValues.map(data => data.str);
-    var base = new BaseCalculoModel();
-    base.baseCalcIRRF = arrayValues[0];
-    base.fgts = arrayValues[1];
-    base.basecalcFGTS = arrayValues[2];
-    base.baseCalcPrevidencia = arrayValues[3];
-    base.salarioBase = arrayValues[4];
-    console.log(base.toJSON());
+  arrayValues = arrayValues.map(data => data.str);
+  var base = new BaseCalculoModel();
+  base.baseCalcIRRF = arrayValues[0];
+  base.fgts = arrayValues[1];
+  base.basecalcFGTS = arrayValues[2];
+  base.baseCalcPrevidencia = arrayValues[3];
+  base.salarioBase = arrayValues[4];
+  console.log(base.toJSON());
 }
 
 function pageTextHandler(pageNum, PDFDocumentInstance) {
-    // Retorna uma promessa quando a página foi extraida com sucesso
-    return new Promise(function(resolve, reject) {
-        PDFDocumentInstance.getPage(pageNum).then(function(pdfPage) {
-            // Pega o texto de toda a página e salva na variável textContent
-            pdfPage.getTextContent().then(function(textContent) {
-                var textItems = textContent.items;
-                //Variável para monitorar a etapa da extração
-                var stepExtraction = 1;
-                //Variável temporária para salvar um indice de inicio
-                var indiceTemp = -1;
-                //Variável booleana temporária para alertar leitura de x indices
-                var flagTemp = false;
-                //Regex para formato de data (mes escrito)/(ano de 4 digits)
-                let regexDate = new RegExp("([A-Za-z])+/[0-9]{4}");
-                //Regex para formato de valor monetário $$,$$ ou $.$$$,$$
-                let regexMonetary = new RegExp("[0-9]+(.[0-9]*)*(,[0-9]{2})");
-                //TODO deixar funções assincronas
-                for (var index = 0; index < textItems.length; index++) {
-                    switch (stepExtraction) {
-                        case 1:
-                            {
-                                if (textItems[index].height == 11) {
-                                    getSalaryComposition(textItems.slice(0, index));
-                                    stepExtraction += 1;
-                                    continue;
-                                } else {
-                                    continue;
-                                }
-                            }
-                        case 2:
-                            {
-                                if (!flagTemp) {
-                                    if (!isNaN(textItems[index].str)) {
-                                        indiceTemp = index;
-                                        flagTemp = true;
-                                        continue;
-                                    } else {
-                                        continue;
-                                    }
-                                } else {
-                                    //Verifica se valor da string é Admissão e inclui este dado no corte [i+1]
-                                    if (textItems[index].str.startsWith("Admiss")) {
-                                        getEmployeeData(textItems.slice(indiceTemp, index + 1));
-                                        stepExtraction += 1;
-                                        indiceTemp = -1;
-                                        flagTemp = false;
-                                        continue;
-                                    } else {
-                                        continue;
-                                    }
-                                }
-                            }
-                        case 3:
-                            {
-                                if (textItems[index].str.match(regexDate)) {
-                                    getDate(textItems[index].str);
-                                    stepExtraction += 1;
-                                    continue;
-                                } else {
-                                    continue;
-                                }
-                            }
-                        case 4:
-                            {
-                                if (!flagTemp) {
-                                    if (textItems[index].str.match(regexMonetary)) {
-                                        indiceTemp = index;
-                                        flagTemp = true;
-                                        continue;
-                                    } else {
-                                        continue;
-                                    }
-                                } else {
-                                    if (index - indiceTemp == 2) {
-                                        getTotalSalaryValues(textItems.slice(indiceTemp, index + 1));
-                                        stepExtraction += 1;
-                                        indiceTemp = -1;
-                                        flagTemp = false;
-                                        continue;
-                                    }
-                                }
-                            }
-                        case 5:
-                            {
-                                if (!flagTemp) {
-                                    if (textItems[index].str.match(regexMonetary)) {
-                                        indiceTemp = index;
-                                        flagTemp = true;
-                                        continue;
-                                    } else {
-                                        continue;
-                                    }
-                                } else {
-                                    if (index - indiceTemp == 4) {
-                                        getSalaryBasesCalc(textItems.slice(indiceTemp, index + 1));
-                                        stepExtraction += 1;
-                                        indiceTemp = -1;
-                                        flagTemp = false;
-                                        continue;
-                                    }
-                                }
-                            }
-                        default:
-                            {
-                                break;
-                            }
-                    }
+  // Retorna uma promessa quando a página foi extraida com sucesso
+  return new Promise(function(resolve, reject) {
+    PDFDocumentInstance.getPage(pageNum).then(function(pdfPage) {
+      // Pega o texto de toda a página e salva na variável textContent
+      pdfPage.getTextContent().then(function(textContent) {
+        var textItems = textContent.items;
+        //Variável para monitorar a etapa da extração
+        var stepExtraction = 1;
+        //Variável temporária para salvar um indice de inicio
+        var indiceTemp = -1;
+        //Variável booleana temporária para alertar leitura de x indices
+        var flagTemp = false;
+        //Regex para formato de data (mes escrito)/(ano de 4 digits)
+        let regexDate = new RegExp("([A-Za-z])+/[0-9]{4}");
+        //Regex para formato de valor monetário $$,$$ ou $.$$$,$$
+        let regexMonetary = new RegExp("[0-9]+(.[0-9]*)*(,[0-9]{2})");
+        for (var index = 0; index < textItems.length; index++) {
+          switch (stepExtraction) {
+            case 1: {
+              if (textItems[index].height == 11) {
+                getSalaryComposition(textItems.slice(0, index));
+                stepExtraction += 1;
+                continue;
+              } else {
+                continue;
+              }
+            }
+            case 2: {
+              if (!flagTemp) {
+                if (!isNaN(textItems[index].str)) {
+                  indiceTemp = index;
+                  flagTemp = true;
+                  continue;
+                } else {
+                  continue;
                 }
+              } else {
+                //Verifica se valor da string é Admissão e inclui este dado no corte [i+1]
+                if (textItems[index].str.startsWith("Admiss")) {
+                  getEmployeeData(textItems.slice(indiceTemp, index + 1));
+                  stepExtraction += 1;
+                  indiceTemp = -1;
+                  flagTemp = false;
+                  continue;
+                } else {
+                  continue;
+                }
+              }
+            }
+            case 3: {
+              if (textItems[index].str.match(regexDate)) {
+                getDate(textItems[index].str);
+                stepExtraction += 1;
+                continue;
+              } else {
+                continue;
+              }
+            }
+            case 4: {
+              if (!flagTemp) {
+                if (textItems[index].str.match(regexMonetary)) {
+                  indiceTemp = index;
+                  flagTemp = true;
+                  continue;
+                } else {
+                  continue;
+                }
+              } else {
+                if (index - indiceTemp == 2) {
+                  getTotalSalaryValues(textItems.slice(indiceTemp, index + 1));
+                  stepExtraction += 1;
+                  indiceTemp = -1;
+                  flagTemp = false;
+                  continue;
+                }
+              }
+            }
+            case 5: {
+              if (!flagTemp) {
+                if (textItems[index].str.match(regexMonetary)) {
+                  indiceTemp = index;
+                  flagTemp = true;
+                  continue;
+                } else {
+                  continue;
+                }
+              } else {
+                if (index - indiceTemp == 4) {
+                  getSalaryBasesCalc(textItems.slice(indiceTemp, index + 1));
+                  stepExtraction += 1;
+                  indiceTemp = -1;
+                  flagTemp = false;
+                  continue;
+                }
+              }
+            }
+            default: {
+              break;
+            }
+          }
+        }
 
-                // Solve promise with the text retrieven from the page
-                resolve(true);
-            });
-        });
+        // Solve promise with the text retrieven from the page
+        resolve(true);
+      });
     });
+  });
 }
 
 /**
@@ -281,13 +274,13 @@ function pageTextHandler(pageNum, PDFDocumentInstance) {
 pdfjsLib.workerSrc = "build/pdf.worker.js";
 var PDF_URL = "contra.pdf";
 pdfjsLib.getDocument(PDF_URL).then(
-    function(PDFDocumentInstance) {
-        pageTextHandler(1, PDFDocumentInstance).then(lista => {
-            console.log(lista);
-        });
-    },
-    function(reason) {
-        //
-        console.error(reason);
-    }
+  function(PDFDocumentInstance) {
+    pageTextHandler(1, PDFDocumentInstance).then(lista => {
+      console.log(lista);
+    });
+  },
+  function(reason) {
+    //
+    console.error(reason);
+  }
 );
