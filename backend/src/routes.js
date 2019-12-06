@@ -40,6 +40,10 @@ routes.get("/noticias", NoticiaController.list_all_noticias);
 routes.get("/noticia", NoticiaController.read_a_noticia);
 routes.delete("/noticia", verifyToken, NoticiaController.delete_a_noticia);
 routes.post("/noticia/edit", verifyToken, NoticiaController.update_a_noticia);
+routes.get(
+  "/noticias/search/:search",
+  NoticiaController.get_noticias_by_search_query
+);
 
 //Routes to filesupload
 routes.post("/upload", busboy(), FileController.save_pdf);
