@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Painel</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="../dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../dist/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../dist/css/fontawesome.min.css" />
     <link href="login.css" rel="stylesheet" />
-    <link href="../custom.css" rel="stylesheet" />
-</head>
+    <link href="../../custom.css" rel="stylesheet" />
+  </head>
 
-<body>
+  <body>
     <div class="wrapper">
-        <form class="form-signin">
-            <h2 class="form-signin-heading">Acesso Portal</h2>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" required autofocus />
-            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required />
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Acesso Portal</h2>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          id="username"
+          placeholder="Usuário"
+          required
+          autofocus
+        />
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          id="password"
+          placeholder="Senha"
+          required
+        />
 
-            <button class="btn btn-blue" type="button" onclick="submitLogin()">
+        <button class="btn btn-blue" type="button" onclick="submitLogin()">
           Entrar
         </button>
-        </form>
+      </form>
     </div>
     <script src="login.js"></script>
-    <script src="../dist/js/bootstrap.min.js"></script>
-</body>
-
+    <script src="../../dist/js/bootstrap.min.js"></script>
+  </body>
 </html>

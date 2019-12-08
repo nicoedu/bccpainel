@@ -1,33 +1,68 @@
 .wrapper {
-    padding-top: 10vh;
-    height: 90vh;
-    background: #fff;
-    padding: 10vh 10vw;
+  padding-top: 10vh;
+  height: 90vh;
+  background: #fff;
+  padding: 10vh 10vw;
 }
 
 .upload-drop-zone {
-    height: 200px;
-    border-width: 2px;
-    margin-bottom: 20px;
+  height: 200px;
+  border-width: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #999;
+  border-style: dashed;
+  border-color: #ccc;
+  border-radius: 20px;
+  padding: auto;
+  text-align: center;
+}
+.upload-drop-zone .iconFile {
+  font-size: 4em;
 }
 
+.visibilityprogressArea {
+  visibility: hidden;
+}
 
-/* skin.css Style*/
+.progressArea {
+  height: 200px;
+  border-width: 2px;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-style: solid;
+  border-color: #222;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
 
-.upload-drop-zone {
-    color: #999;
-    border-style: dashed;
-    border-color: #ccc;
-    border-radius: 20px;
-    line-height: 200px;
-    text-align: center
+.progressArea p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.isUploading {
+  display: none !important;
 }
 
 .upload-drop-zone.drop {
-    color: #222;
-    border-color: #222;
+  color: #222;
+  border-color: #222;
 }
 
-#uploadForm {
-    display: none;
+.uploadPDF {
+  display: none;
 }

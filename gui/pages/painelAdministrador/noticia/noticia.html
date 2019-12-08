@@ -35,20 +35,45 @@
     <span id="nav"></span>
 
     <div class="container bg-white">
+      <div class="noticiaHeader">
+        <p>
+          Notícias
+        </p>
+        <a
+          href="./noticiaNova.html"
+          id="adicionarNoticia"
+          class="btn btn-blue-simple"
+        >
+          Nova notícia
+        </a>
+      </div>
       <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
-          <h1 class="my-4">
-            Notícias
-          </h1>
-          <a
-            href="./noticiaNova.html"
-            id="adicionarNoticia"
-            class="btn btn-blue-simple"
-          >
-            Adicionar notícia
-          </a>
-          <span id="noticia"> </span>
+        <div class="col-md-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar..." />
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1"
+              >Selecione o departamento</label
+            >
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row" id="noticia"></div>
+
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
             <li class="page-item">
@@ -59,30 +84,7 @@
             </li>
           </ul>
         </div>
-
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Filtro</h5>
-            <div class="card-body">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Buscar..."
-                />
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">
-                    <icon></icon>
-                  </button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <!-- /.row -->
     </div>
 
     <!-- Bootstrap core JavaScript

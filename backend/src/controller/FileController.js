@@ -1,6 +1,12 @@
 const fs = require("fs");
 const pdfHandler = require("../util/pdfHandler");
 const pdf2base64 = require("pdf-to-base64");
+const UPLOAD_PDF_DIRECTORY =
+  "/home/nicoedu/Documents/BBC/files/contrachequeCompleto/";
+const GENERATED_PDF_DIRECTORY =
+  "/home/nicoedu//Documents/BBC/files/contrachequeDividido/";
+const NOTICIA_IMAGES_DIRECTORY =
+  "/home/nicoedu/Documents/BBC/files/images/noticia/";
 
 module.exports = {
   //TODO test this out
@@ -25,9 +31,7 @@ module.exports = {
     // var stat = fs.statSync(
     //   "/home/nicoedu/Documents/BBC/meu/backend/uploads/" + filename
     // );
-    pdf2base64(
-      "/home/nicoedu/Documents/BBC/meu/backend/src/util/output/" + filename
-    )
+    pdf2base64(GENERATED_PDF_DIRECTORY + filename)
       .then(response => {
         res.send(response);
       })
@@ -47,9 +51,7 @@ module.exports = {
       return new Promise((resolve, reject) => {
         req.busboy.on("file", function(fieldname, file, filename) {
           console.log("Uploading: " + filename);
-          fstream = fs.createWriteStream(
-            "/home/nicoedu/Documents/BBC/meu/backend/uploads/" + filename
-          );
+          fstream = fs.createWriteStream(UPLOAD_PDF_DIRECTORY + filename);
           file.pipe(fstream);
           fstream.on("close", function() {
             resolve({ sucess: true, filename: filename });
@@ -64,8 +66,8 @@ module.exports = {
     if (resolve.sucess) {
       res.status(200).send(JSON.stringify({ top: "top" }));
       pdfHandler.pdfLoader(
-        "/home/nicoedu/Documents/BBC/meu/backend/uploads/" + resolve.filename,
-        "/home/nicoedu/Documents/BBC/meu/backend/src/util/output/"
+        UPLOAD_PDF_DIRECTORY + resolve.filename,
+        GENERATED_PDF_DIRECTORY
       );
       return;
     } else {
@@ -78,9 +80,10 @@ module.exports = {
     var resolve = await (async () => {
       return new Promise((resolve, reject) => {
         req.busboy.on("file", function(fieldname, file, filename) {
+          fileFormat = filename.split(".")[1];
           console.log("Uploading: " + filename);
           fstream = fs.createWriteStream(
-            "/home/nicoedu/Documents/BBC/meu/backend/noticia" + filename
+            NOTICIA_IMAGES_DIRECTORY + fieldname + "." + fileFormat
           );
           file.pipe(fstream);
           fstream.on("close", function() {

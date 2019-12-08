@@ -1,43 +1,54 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,500,500i,600,700|Source+Sans+Pro:300,300i,400,400i,600,700");
 body {
-    background: #ddd;
-    font-family: "Fira Sans", sans-serif;
+  background: #ddd;
+  font-family: "Fira Sans", sans-serif;
+}
+
+.navbar a {
+  font-size: 1.5em !important;
+}
+.navbar li {
+  padding-left: 3vw;
+}
+.navbar-toggler-icon {
+  font-size: 1.5em !important;
+  color: #fff;
 }
 
 a {
-    color: #fff;
-    font-weight: 500;
-    text-decoration: none;
-    background-color: transparent;
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 .nav-bg-blue {
-    background: #0A286C;
-    color: #fff;
+  background: #0a286c;
+  color: #fff;
 }
 
 .btn-blue {
-    background: #0A286C;
-    color: #fff;
-    padding: 10px 45px;
-    border-radius: 50px;
-    font-size: 1.3rem;
-    line-height: 3vh;
-    font-family: "Fira Sans", sans-serif;
-    font-weight: 600;
-    text-decoration: none;
-    display: block;
-    width: 100%;
+  background: #0a286c;
+  color: #fff;
+  padding: 10px 45px;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  line-height: 3vh;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+  width: 100%;
 }
 
 .btn-blue-simple {
-    background: #0A286C;
-    color: #fff;
-    padding: 10px 45px;
-    border-radius: 50px;
-    font-size: 1.3rem;
-    line-height: 3vh;
-    font-family: "Fira Sans", sans-serif;
-    font-weight: 600;
-    text-decoration: none;
+  background: #0a286c;
+  color: #fff;
+  padding: 10px 45px;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  line-height: 3vh;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  text-decoration: none;
 }
