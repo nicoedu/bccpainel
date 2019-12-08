@@ -4,16 +4,14 @@ const NOTICIA_IMAGES_DIRECTORY =
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   //extra html you want to store.
   return (
-    '<div class="card mb-4"><div class="row"><div class="col-4 post-img"><img src=' +
+    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-4 post-img"><img src=' +
     NOTICIA_IMAGES_DIRECTORY +
     imgsrc +
     '" alt="Card image cap" /></div><div class="col-8 card-body"><h2 class="card-title">' +
     titulo +
-    '</h2>           <p class="card-text">                ' +
-    texto +
-    '            </p>            <button onclick="gotoNoticia(' +
+    '</h2>                     <button onclick="gotoNoticia(' +
     idnoticia +
-    ')" class="btn btn-blue-simple">Ler mais &rarr;</button>        </div>    </div>    <div class="card-footer text-muted">        Postado em ' +
+    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>        </div>    </div>    <div class="card-footer text-muted">        Postado ' +
     timestampToDate(date) +
     " por " +
     autor +
@@ -23,24 +21,18 @@ function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
 
 function timestampToDate(timestamp) {
   var date = new Date(+timestamp);
-  var dia = date.getDate();
-  var mes = date.getMonth(); //Be careful! January is 0 not 1
-  var ano = date.getFullYear();
-  var hora = date.getHours();
-  var minuto = "0" + date.getMinutes();
-  var formatedTime =
-    dia + "/" + mes + "/" + ano + " ás " + hora + ":" + minuto.substr(-2);
+  var formatedTime = date.toLocaleString("pt-BR", { dateStyle: "full" });
   return formatedTime;
 }
 
-function putPost() {
+function putPost(optional = "") {
   var xhr = new XMLHttpRequest();
-  console.log("requesting");
-  xhr.open("GET", "http://localhost:3333/noticias", true);
+  xhr.open("GET", "http://localhost:3333/noticias" + optional, true);
 
   var noticiasElement = document.getElementById("noticia");
   xhr.onload = function() {
     noticias = JSON.parse(this.responseText);
+    noticiasElement.innerHTML = "";
     noticias.map(
       ({
         idnoticia,
@@ -71,10 +63,47 @@ function gotoNoticia(id) {
   window.location = "./noticiaPage.html?id=" + id;
 }
 
+function putOptions(departamentos, departamento) {
+  departamentos.innerHTML +=
+    '<option value="' +
+    departamento.iddepartamento +
+    '">' +
+    departamento.nomedepartamento +
+    "</option>";
+}
+
+function getListaDepartamento(callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://localhost:3333/departamentos", true);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      callback(true, xhr.responseText);
+    }
+  };
+  xhr.onerror = function(event) {
+    console.log(event);
+    callback(false, event);
+  };
+  xhr.send();
+}
+
 $(function() {
-  // $.get("../general/navbar.html", function(data) {
-  //     $("#nav").html(data);
-  // });
-  console.log("chamando funcao local");
+  getListaDepartamento((sucess, response) => {
+    if (sucess) {
+      var departamentos = document.getElementById("multiselect");
+      JSON.parse(response).map(departamento => {
+        putOptions(departamentos, departamento);
+      });
+      departamentos.classList = "selectpicker";
+      $(".selectpicker").selectpicker();
+    }
+  });
+
+  $("#searchButton").on("click", () => {
+    var searchInput = document.getElementById("searchInput");
+    searchURL = "/search/" + searchInput.value;
+    putPost(searchURL);
+  });
   putPost();
 });

@@ -1,0 +1,33 @@
+.wrapper {
+  padding-top: 2vh;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitDateButton {
+  max-width: 200px;
+  max-height: 50px;
+}
+
+.pdfArea {
+  background: #333;
+  padding: 2vw;
+  margin-top: 2vw;
+}
+
+.errorArea {
+  border-style: solid;
+  padding: 10vh;
+  margin-top: 3vh;
+  color: red;
+}
+
+.errorArea p {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+}

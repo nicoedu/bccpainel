@@ -22,40 +22,46 @@ Noticia.createNoticia = function(newNoticia, result) {
   });
 };
 Noticia.getNoticiaById = function(idnoticia, result) {
-  sql.query("Select * from noticia where idnoticia = ?", idnoticia, function(
-    err,
-    res
-  ) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
+  sql.query(
+    "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where idnoticia = ?",
+    idnoticia,
+    function(err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Noticia.getNoticiaByQuery = function(query, result) {
-  sql.query("Select * from noticia where texto like %?%", query, function(
-    err,
-    res
-  ) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
+  sql.query(
+    "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where texto like '%" +
+      query +
+      "%'",
+    function(err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Noticia.getAllNoticia = function(result) {
-  sql.query("Select * from noticia", function(err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
+  sql.query(
+    "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf",
+    function(err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Noticia.getAllNoticiaByDepartamento = function(
   departamento,
@@ -64,8 +70,9 @@ Noticia.getAllNoticiaByDepartamento = function(
 ) {
   includeAllDepartament
     ? (query =
-        "Select * from noticia where departamento like '%?%' or departamento IS NULL")
-    : (query = "Select * from noticia where departamento like '%?%'");
+        "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%' or noticia.departamento IS NULL")
+    : (query =
+        "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%'");
 
   sql.query(query, '"' + departamento + '"', function(err, res) {
     if (err) {

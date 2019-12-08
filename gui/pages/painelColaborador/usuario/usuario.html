@@ -36,19 +36,54 @@
 
     <div class="container bg-white">
       <div class="wrapper">
-        <div>
-          <p id="cpf"></p>
-          <p id="matricula"></p>
-          <p id="nome"></p>
-          <p id="cargo"></p>
-          <p id="departamento"></p>
-          <button
-            class="btn btn-blue-simple"
-            data-toggle="modal"
-            data-target="#modalExemplo"
-          >
-            Alterar Senha
-          </button>
+        <div class="heading">
+          <h2>Meus Dados</h2>
+        </div>
+        <div class="dataBox">
+          <h2>Pessoais</h2>
+          <div class="row">
+            <div class="col-md-3">
+              <label>CPF</label>
+              <p id="cpf"></p>
+            </div>
+            <div class="col-md-3">
+              <label>Matricula</label>
+              <p id="matricula"></p>
+            </div>
+            <div class="col-md-3">
+              <label>Nome completo</label>
+              <p id="nome"></p>
+            </div>
+
+            <div class="col-md-3">
+              <label>Cargo</label>
+              <p id="cargo"></p>
+            </div>
+            <div class="col-md-3">
+              <label>Nº de Departamento</label>
+              <p id="departamento"></p>
+            </div>
+          </div>
+          <h2>Acesso</h2>
+          <div class="row">
+            <div class="col-md-3">
+              <label>CPF</label>
+              <p id="user-acesso"></p>
+            </div>
+            <div class="col-md-3">
+              <label>Senha</label>
+              <p>********</p>
+            </div>
+            <div class="col-md-3">
+              <button
+                class="btn btn-blue-simple"
+                data-toggle="modal"
+                data-target="#modalExemplo"
+              >
+                Alterar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,28 +112,38 @@
             </button>
           </div>
           <div class="modal-body">
-            <input
-              type="password"
-              name="username"
-              id="password-old"
-              placeholder="Senha antiga"
-              required
-              autofocus
-            />
-            <input
-              type="password"
-              name="password"
-              id="password-new"
-              placeholder="Senha nova"
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              id="password-new2"
-              placeholder="Redigite a nova senha"
-              required
-            />
+            <div class="row">
+              <div class="col-md-12">
+                <input
+                  type="password"
+                  name="username"
+                  id="password-old"
+                  placeholder="Senha antiga"
+                  required
+                  autofocus
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <input
+                  type="password"
+                  name="password"
+                  id="password-new"
+                  placeholder="Senha nova"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="password"
+                  name="password"
+                  id="password-new2"
+                  placeholder="Redigite a nova senha"
+                  required
+                />
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button

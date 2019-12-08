@@ -28,7 +28,6 @@ Contracheque.getContrachequeByCpf = function(cpf, result) {
       console.log("error: ", err);
       result(err, null);
     } else {
-      console.log(res);
       result(null, res);
     }
   });
@@ -39,8 +38,6 @@ Contracheque.getAllContracheque = function(result) {
       console.log("error: ", err);
       result(null, err);
     } else {
-      console.log("contracheque : ", res);
-
       result(null, res);
     }
   });
@@ -51,7 +48,7 @@ Contracheque.getContrachequeByCpfandDate = function(
   result
 ) {
   sql.query(
-    "Select * from contracheque where cpf = ? and data_referencia = ?",
+    "Select arquivo_endereco from contracheque where cpf = ? and data_referencia = ?",
     [cpf, data_referencia],
     function(err, res) {
       if (err) {

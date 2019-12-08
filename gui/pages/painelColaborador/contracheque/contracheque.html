@@ -26,6 +26,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../../../dist/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../../../dist/css/bootstrap-select.min.css" />
     <link href="../../../dist/css/solid.min.css" rel="stylesheet" />
     <link href="../../../custom.css" rel="stylesheet" />
     <link href="contracheque.css" rel="stylesheet" />
@@ -34,15 +35,80 @@
   <body>
     <div id="nav"></div>
     <div class="container bg-white">
-      <input id="dateinput" type="text" />
-      <button id="datebutton" type="button">Enviar</button>
-      <canvas id="the-canvas"></canvas>
-      <button type="button" id="pdfDownload" class="btn-blue-simple">
+      <div class="wrapper">
+        <div class="row">
+          <div class="col-md-4">
+            <label>Escolha o mês</label>
+            <select class="selectpicker" id="selectMes">
+              <option value="00">Janeiro</option>
+              <option value="01">Fevereiro</option>
+              <option value="02">Março</option>
+              <option value="03">Abril</option>
+              <option value="04">Maio</option>
+              <option value="05">Junho</option>
+              <option value="06">Julho</option>
+              <option value="07">Agosto</option>
+              <option value="08">Setembro</option>
+              <option value="09">Outubro</option>
+              <option value="10">Novembro</option>
+              <option value="11">Dezembro</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Escolha o ano</label>
+            <select class="selectpicker" id="selectAno">
+              <option value="2000">2000</option>
+              <option value="2001">2001</option>
+              <option value="2002">2002</option>
+              <option value="2003">2003</option>
+              <option value="2004">2004</option>
+              <option value="2005">2005</option>
+              <option value="2006">2006</option>
+              <option value="2007">2007</option>
+              <option value="2008">2008</option>
+              <option value="2009">2009</option>
+              <option value="2010">2010</option>
+              <option value="2011">2011</option>
+              <option value="2012">2012</option>
+              <option value="2013">2013</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+            </select>
+          </div>
+          <button
+            class="col-md-2 submitDateButton btn btn-blue-simple"
+            id="datebutton"
+            type="button"
+          >
+            Gerar
+          </button>
+        </div>
+      </div>
+      <button
+        type="button"
+        style="display: none;"
+        id="pdfDownload"
+        class="btn-blue-simple"
+      >
         Baixar Contracheque
       </button>
+      <div class="pdfArea" style="display: none;" id="pdfArea">
+        <canvas id="the-canvas"></canvas>
+      </div>
+      <div class="errorArea" style="display: none;" id="errorArea">
+        <p>
+          Documento não encontrado!
+        </p>
+      </div>
     </div>
     <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
+    <script src="../../../dist/js/popper.min.js"></script>
     <script src="../../../dist/js/bootstrap.min.js"></script>
+    <script src="../../../dist/js/bootstrap-select.min.js"></script>
     <script src="../general/generalScript.js"></script>
     <script src="../../../dist/pdfjs/build/pdf.js"></script>
     <script src="../../../dist/pdfjs/web/viewer.js"></script>

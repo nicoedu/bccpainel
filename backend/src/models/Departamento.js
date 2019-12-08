@@ -27,7 +27,6 @@ Departamento.getDepartamentoById = function(iddepartamento, result) {
         console.log("error: ", err);
         result(err, null);
       } else {
-        console.log(res);
         result(null, res);
       }
     }

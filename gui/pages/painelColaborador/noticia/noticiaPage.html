@@ -10,13 +10,13 @@
     <meta name="author" content="" />
     <link
       rel="icon"
-      href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon-150x150.png"
-      sizes="32x32"
+      href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon.png"
+      sizes="192x192"
     />
     <link
       rel="icon"
-      href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon.png"
-      sizes="192x192"
+      href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon-150x150.png"
+      sizes="32x32"
     />
 
     <title>Painel do Administrador</title>
@@ -31,28 +31,30 @@
     <link href="../../../custom.css" rel="stylesheet" />
   </head>
 
-  <span id="nav"></span>
-  <div class="container bg-white">
-    <div class="row">
-      <div class="col-lg-8">
-        <!-- the actual blog post: title/author/date/content -->
-        <h1 id="titulo"></h1>
-        <p class="lead" id="postado_por">
-          <i class="fa fa-user"></i> postado por:
-        </p>
-        <hr />
-        <p id="postado_em"><i class="fas fa-calendar-alt"></i> Postado em:</p>
-        <hr />
-        <img id="imagem" src="" class="img-responsive" />
-        <hr />
-        <p class="lead" id="texto"></p>
-        <br />
+  <body>
+    <span id="nav"></span>
+    <div class="container bg-white">
+      <div class="row">
+        <div class="col-lg-8">
+          <!-- the actual blog post: title/author/date/content -->
+          <h1 id="titulo"></h1>
+          <p class="lead" id="postado_por">
+            <i class="fa fa-user"></i> postado por:
+          </p>
+          <hr />
+          <p id="postado_em"><i class="fas fa-calendar-alt"></i> Postado em:</p>
+          <hr />
+          <img id="imagem" src="" class="img-responsive" />
+          <hr />
+          <p class="lead" id="texto"></p>
+          <br />
+        </div>
       </div>
     </div>
-  </div>
 
-  <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
-  <script src="../../../dist/js/bootstrap.min.js"></script>
-  <script src="../general/authCheck.js"></script>
-  <script src="noticiaPage.js"></script>
+    <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
+    <script src="../../../dist/js/bootstrap.min.js"></script>
+    <script src="../general/generalScript.js"></script>
+    <script src="noticiaPage.js"></script>
+  </body>
 </html>

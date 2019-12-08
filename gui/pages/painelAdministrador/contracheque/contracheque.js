@@ -59,7 +59,6 @@ function startUpload(files) {
   uploadStatus.innerHTML = "O arquivo está sendo enviado. Aguarde...";
 
   xhr.upload.onprogress = function(e) {
-    console.log(e.loaded, e.total);
     if (e.lengthComputable) {
       var percentage = (e.loaded / e.total) * 100;
       progressBar.setAttribute("style", "width: " + percentage + "%");

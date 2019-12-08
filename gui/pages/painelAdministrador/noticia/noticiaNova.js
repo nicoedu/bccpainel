@@ -6,8 +6,8 @@ function sendNoticia() {
 
   var titulo = document.getElementById("titulo").value;
   var texto = document.getElementById("texto").value;
-  var departamento = $("#departamento").val();
-  var postado_por = "admin";
+  var departamento = $("#multiselect").val();
+  var postado_por = sessionStorage.getItem("cpf");
   departamento.length == 0 || departamento == "null"
     ? (departamento = null)
     : (departamento = JSON.stringify(departamento));
@@ -21,12 +21,14 @@ function sendNoticia() {
   };
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:3333/image", true);
-  xhr.onload = function() {
+  xhr.onload = function(event) {
+    response = JSON.parse(event.target.response);
+    noticiaObject.imagem_endereco = response.filename;
     let xhr2 = new XMLHttpRequest();
     xhr2.open("POST", "http://localhost:3333/noticia", true);
     xhr2.setRequestHeader("Content-type", "application/json");
     xhr2.onload = function(event) {
-      console.log(event);
+      window.location = "./noticia.html";
     };
     xhr2.send(JSON.stringify(noticiaObject));
   };
@@ -37,8 +39,7 @@ function sendNoticia() {
   xhr.send(formData);
 }
 
-function putOptions(departamento) {
-  var departamentos = document.getElementById("departamento");
+function putOptions(departamentos, departamento) {
   departamentos.innerHTML +=
     '<option value="' +
     departamento.iddepartamento +
@@ -63,13 +64,32 @@ function getListaDepartamento(callback) {
   xhr.send();
 }
 
+function previewImage() {
+  var preview = document.getElementById("preview");
+  var file = document.getElementById("imagem").files[0];
+  var reader = new FileReader();
+
+  reader.onloadend = function() {
+    preview.src = reader.result;
+  };
+
+  if (file) {
+    preview.style = "display: block;";
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+
 $(function() {
-  console.log("jquery");
   getListaDepartamento((sucess, response) => {
     if (sucess) {
+      var departamentos = document.getElementById("multiselect");
       JSON.parse(response).map(departamento => {
-        putOptions(departamento);
+        putOptions(departamentos, departamento);
       });
+      departamentos.classList = "selectpicker";
+      $(".selectpicker").selectpicker();
     }
   });
 

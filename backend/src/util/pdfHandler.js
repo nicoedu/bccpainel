@@ -103,7 +103,7 @@ function pageTextHandler(pageNum, PDFDocumentInstance) {
                       employee: employeeAndDpt.empregado,
                       departament: employeeAndDpt.departamento,
                       date: date,
-                      page: pageNum
+                      page: pageNum - 1
                     });
                     break;
                   }
@@ -124,16 +124,6 @@ function pageTextHandler(pageNum, PDFDocumentInstance) {
   });
 }
 
-function savePdf(folder_url, pdf_url, employee, date, page) {
-  return new Promise((res, rej) => {
-    filename = employee.matricula.replace(/^0+/, "") + date.toString() + ".pdf";
-    var pdfWriter = hummus.createWriter(folder_url + filename);
-    pdfWriter.appendPDFPagesFromPDF(pdf_url, [[page - 1, page]]);
-    pdfWriter.end();
-    res(filename);
-  });
-}
-
 function getEmployeeAndDepartamentData(arrayDados) {
   var empregado = {};
   var departamento = {};
@@ -146,6 +136,7 @@ function getEmployeeAndDepartamentData(arrayDados) {
     .split(" ")[1]
     .replace(/\./g, "")
     .replace("-", "");
+
   departamentoData = arrayDados[5].split(" ");
   empregado.departamento = departamentoData[1];
 
@@ -163,7 +154,7 @@ function getDate(dateString) {
 
 function toTimestamp(dateStr) {
   var parts = dateStr.split("/");
-  var date = new Date(parts[2], parts[1] - 1, parts[0]);
+  var date = new Date(Date.UTC(parts[2], parts[1] - 1, parts[0]));
   return date.getTime() / 1000;
 }
 

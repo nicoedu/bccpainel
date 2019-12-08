@@ -8,14 +8,15 @@ function getUserByCpf(cpf) {
   xhr.open("GET", "http://localhost:3333/user?cpf=" + cpf, true);
 
   xhr.onload = function() {
-    console.log(this.responseText);
     usuario = JSON.parse(this.responseText)[0];
     var cpf = document.getElementById("cpf");
+    var user = document.getElementById("user-acesso");
     var nome = document.getElementById("nome");
     var matricula = document.getElementById("matricula");
     var cargo = document.getElementById("cargo");
     var departamento = document.getElementById("departamento");
     cpf.innerHTML = usuario.cpf;
+    user.innerHTML = usuario.cpf;
     nome.innerHTML = usuario.nome;
     matricula.innerHTML = usuario.matricula;
     cargo.innerHTML = usuario.cargo;
@@ -28,7 +29,6 @@ function getUserByCpf(cpf) {
 }
 
 function mudarSenha() {
-  console.log(usuario);
   var senhaAntiga = document.getElementById("password-old").value;
   var senhaNova = document.getElementById("password-new").value;
   var senhaNova2 = document.getElementById("password-new2").value;

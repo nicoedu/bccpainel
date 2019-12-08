@@ -26,6 +26,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../../../dist/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../../../dist/css/bootstrap-select.min.css" />
     <link href="../../../dist/css/solid.min.css" rel="stylesheet" />
     <link href="noticia.css" rel="stylesheet" />
     <link href="../../../custom.css" rel="stylesheet" />
@@ -51,23 +52,27 @@
         <!-- Blog Entries Column -->
         <div class="col-md-3">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar..." />
+            <input
+              id="searchInput"
+              type="text"
+              class="form-control"
+              placeholder="Buscar..."
+            />
             <span class="input-group-btn">
-              <button class="btn btn-secondary" type="button">
+              <button id="searchButton" class="btn btn-secondary" type="button">
                 <i class="fas fa-search"></i>
               </button>
             </span>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1"
-              >Selecione o departamento</label
+          <div class="multiselectNovaNoticia">
+            <label for="multiselect">Selecione os departamentos</label>
+            <select
+              multiple
+              data-style="bg-white px-4 py-3 shadow-sm"
+              title="Nenhum selecionado"
+              id="multiselect"
             >
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option value="null">Todos os departamentos</option>
             </select>
           </div>
         </div>
@@ -91,7 +96,9 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
+    <script src="../../../dist/js/popper.min.js"></script>
     <script src="../../../dist/js/bootstrap.min.js"></script>
+    <script src="../../../dist/js/bootstrap-select.min.js"></script>
     <script src="../general/generalScript.js"></script>
     <script src="noticia.js"></script>
   </body>

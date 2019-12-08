@@ -11,26 +11,8 @@ const NOTICIA_IMAGES_DIRECTORY =
 module.exports = {
   //TODO test this out
   async send_pdf(req, res) {
-    // if (!req.query.cpf) {
-    //   res.send(400).send("Dados invalidos");
-    //   return;
-    // }
-    // var cpf = req.query.cpf;
-    // if (!req.query.date) {
-    //   res.send(400).send("Dados invalidos");
-    //   return;
-    // }
-    // var date = req.query.date;
+    var filename = req.query.filename;
 
-    // filename = cpf + String(new Date(date).getTime() / 1000);
-    var filename = req.query.filename + ".pdf";
-
-    // var file = fs.createReadStream(
-    //   "/home/nicoedu/Documents/BBC/meu/backend/uploads/" + filename
-    // );
-    // var stat = fs.statSync(
-    //   "/home/nicoedu/Documents/BBC/meu/backend/uploads/" + filename
-    // );
     pdf2base64(GENERATED_PDF_DIRECTORY + filename)
       .then(response => {
         res.send(response);
@@ -38,11 +20,6 @@ module.exports = {
       .catch(error => {
         console.log(error);
       });
-
-    // res.setHeader("Content-Length", stat.size);
-    // res.setHeader("Content-Type", "application/pdf");
-    // res.setHeader("Content-Disposition", "attachment; filename=" + filename);
-    // file.pipe(res);
   },
   async save_pdf(req, res) {
     var fstream;
@@ -87,7 +64,7 @@ module.exports = {
           );
           file.pipe(fstream);
           fstream.on("close", function() {
-            resolve({ sucess: true, filename: filename });
+            resolve({ sucess: true, filename: fieldname + "." + fileFormat });
           });
           fstream.on("error", function(err) {
             console.log(err);
@@ -97,7 +74,7 @@ module.exports = {
       });
     })();
     if (resolve.sucess) {
-      res.status(200).send(JSON.stringify({ top: "top" }));
+      res.status(200).send(JSON.stringify({ filename: resolve.filename }));
     } else {
       return res.status(400).end(resolve.error);
     }

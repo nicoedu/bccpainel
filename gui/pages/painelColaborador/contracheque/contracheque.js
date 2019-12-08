@@ -1,11 +1,10 @@
 var pdfBase64;
 $(function() {
   $("#datebutton").click(() => {
-    date = $("#datebutton").val();
-    //TODO aceitar datas
-    adjustedDate = date;
-    getPdfFile(adjustedDate);
-    var buttonDownload = document.getElementById("pdfDownload");
+    var selectMes = document.getElementById("selectMes");
+    var selectAno = document.getElementById("selectAno");
+    adjustedDate = selectAno.value + "-" + selectMes.value;
+    getPdfFile(dateToTimestamp(selectAno.value, selectMes.value));
   });
 
   $("#pdfDownload").click(() => {
@@ -44,61 +43,90 @@ function toPDFObj(base64) {
   return uint8Array;
 }
 
-function dateToTimestamp() {}
+function dateToTimestamp(ano, mes) {
+  var date = new Date(Date.UTC(ano, mes));
+  return date.getTime() / 1000;
+}
 
 function getPdfFile(date) {
   var cpf = sessionStorage.getItem("cpf");
   var xhr = new XMLHttpRequest();
+  var buttonDownload = document.getElementById("pdfDownload");
+  var pdfArea = document.getElementById("pdfArea");
+  var errorArea = document.getElementById("errorArea");
   xhr.open(
     "GET",
-    //"http://localhost:3333/downloadpdf?cpf=" + cpf + "&date=" + date
-    "http://localhost:3333/downloadpdf?filename=2900-1569898800"
+    "http://localhost:3333/contracheque/" + date + "/?cpf=" + cpf
   );
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onload = function() {
-    pdfBase64 = this.response;
-    var pdfAsArray = toPDFObj(pdfBase64);
-    console.log(pdfAsArray);
-    var loadingTask = pdfjsLib.getDocument(pdfAsArray);
-    var pdfDocument;
-    loadingTask.promise.then(
-      function(pdf) {
-        pdfDocument = pdf;
-        console.log(typeof pdf);
-        console.log("PDF loaded");
-
-        // Fetch the first page
-        var pageNumber = 1;
-        pdf.getPage(pageNumber).then(function(page) {
-          console.log("Page loaded");
-
-          var scale = 1.5;
-          var viewport = page.getViewport({ scale: scale });
-
-          // Prepare canvas using PDF page dimensions
-          var canvas = document.getElementById("the-canvas");
-          var context = canvas.getContext("2d");
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-
-          // Render PDF page into canvas context
-          var renderContext = {
-            canvasContext: context,
-            viewport: viewport
-          };
-          var renderTask = page.render(renderContext);
-          renderTask.promise.then(function() {
-            console.log("Page rendered");
-          });
-        });
-      },
-      function(reason) {
-        // PDF loading error
-        console.error(reason);
-      }
+    response = JSON.parse(this.response);
+    if (response.length == 0) {
+      buttonDownload.style = "display: none";
+      pdfArea.style = "display: none";
+      errorArea.style = "display: block";
+      return;
+    }
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open(
+      "GET",
+      //"http://localhost:3333/downloadpdf?cpf=" + cpf + "&date=" + date
+      "http://localhost:3333/downloadpdf?filename=" +
+        response[0].arquivo_endereco
     );
+    xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr2.onload = function() {
+      pdfBase64 = this.response;
+      var pdfAsArray = toPDFObj(pdfBase64);
+      var loadingTask = pdfjsLib.getDocument(pdfAsArray);
+      loadingTask.promise.then(
+        function(pdf) {
+          pdfDocument = pdf;
+
+          buttonDownload.style = "display: block";
+          pdfArea.style = "display: block";
+          errorArea.style = "display: none";
+          // Fetch the first page
+          var pageNumber = 1;
+          pdf.getPage(pageNumber).then(function(page) {
+            console.log("Page loaded");
+
+            var scale = 1.5;
+            var viewport = page.getViewport({ scale: scale });
+
+            // Prepare canvas using PDF page dimensions
+            var canvas = document.getElementById("the-canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render PDF page into canvas context
+            var renderContext = {
+              canvasContext: context,
+              viewport: viewport
+            };
+            var renderTask = page.render(renderContext);
+            renderTask.promise.then(function() {
+              console.log("Page rendered");
+            });
+          });
+        },
+        function(reason) {
+          console.error(reason);
+        }
+      );
+    };
+    xhr2.onerror = function(event) {
+      buttonDownload.style = "display: none";
+      pdfArea.style = "display: none";
+      errorArea.style = "display: block";
+      console.log(event);
+    };
+    xhr2.send();
   };
-  xhr.onerror = function(event) {
+  xhr.onerror = event => {
+    buttonDownload.style = "display: none";
+    pdfArea.style = "display: none";
+    errorArea.style = "display: block";
     console.log(event);
   };
   xhr.send();

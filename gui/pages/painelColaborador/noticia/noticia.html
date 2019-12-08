@@ -26,6 +26,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../../../dist/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../../../dist/css/bootstrap-select.min.css" />
     <link href="../../../dist/css/solid.min.css" rel="stylesheet" />
     <link href="noticia.css" rel="stylesheet" />
     <link href="../../../custom.css" rel="stylesheet" />
@@ -35,13 +36,31 @@
     <span id="nav"></span>
 
     <div class="container bg-white">
+      <div class="noticiaHeader">
+        <p>
+          Notícias
+        </p>
+      </div>
       <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
-          <h1 class="my-4">
-            Notícias
-          </h1>
-          <span id="noticia"> </span>
+        <div class="col-md-3">
+          <div class="input-group">
+            <input
+              id="searchInput"
+              type="text"
+              class="form-control"
+              placeholder="Buscar..."
+            />
+            <span class="input-group-btn">
+              <button id="searchButton" class="btn btn-secondary" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row" id="noticia"></div>
+
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
             <li class="page-item">
@@ -52,37 +71,16 @@
             </li>
           </ul>
         </div>
-
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Filtro</h5>
-            <div class="card-body">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Buscar..."
-                />
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">
-                    <icon></icon>
-                  </button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <!-- /.row -->
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
+    <script src="../../../dist/js/popper.min.js"></script>
     <script src="../../../dist/js/bootstrap.min.js"></script>
+    <script src="../../../dist/js/bootstrap-select.min.js"></script>
     <script src="../general/generalScript.js"></script>
     <script src="noticia.js"></script>
   </body>

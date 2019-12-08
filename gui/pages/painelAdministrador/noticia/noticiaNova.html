@@ -23,10 +23,12 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="../../../dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../dist/css/bootstrap-select.min.css" />
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../../../dist/css/fontawesome.min.css" />
     <link href="../../../dist/css/solid.min.css" rel="stylesheet" />
+    <link href="../../../dist/css/regular.min.css" rel="stylesheet" />
     <link href="noticia.css" rel="stylesheet" />
     <link href="../../../custom.css" rel="stylesheet" />
   </head>
@@ -34,24 +36,82 @@
   <body>
     <span id="nav"></span>
     <div class="container bg-white">
-      <input type="text" id="titulo" placeholder="titulo" />
-      <textarea id="texto" rows="5" cols="33"></textarea>
-      <div class="form-group">
-        <label for="departamento">Selecione os departamentos</label>
-        <select multiple="multiple" class="form-control" id="departamento">
-          <option value="null">Todos os departamentos</option>
-        </select>
-      </div>
-      <input type="file" id="imagem" accept="image/*" />
+      <div class="row">
+        <div class="col-md-8">
+          <div class="mainNovaNoticia">
+            <div class="form-group">
+              <label>Titulo</label>
+              <input
+                class="tituloNovaNoticia"
+                type="text"
+                id="titulo"
+                placeholder="Título da notícia"
+              />
+            </div>
+            <div class="form-group">
+              <label>Notícia</label>
+              <textarea
+                class="textoNovaNoticia"
+                placeholder="Digite aqui o texto da notícia..."
+                id="texto"
+                rows="5"
+                cols="33"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sidebarNovaNoticia">
+            <div class="multiselectNovaNoticia">
+              <label for="multiselect">Selecione os departamentos</label>
+              <select
+                multiple
+                data-style="bg-white px-4 py-3 shadow-sm"
+                title="Nenhum selecionado"
+                id="multiselect"
+              >
+                <option value="null">Todos os departamentos</option>
+              </select>
+            </div>
+            <label class="imageUploadIcon" for="imagem"
+              ><i class="far fa-plus-square"></i> Adicionar imagem...</label
+            >
+            <input
+              type="file"
+              class="inputImage"
+              onchange="previewImage()"
+              id="imagem"
+              accept="image/*"
+            />
+            <img
+              src=""
+              style="display: none;"
+              id="preview"
+              height="50"
+              alt="Image preview..."
+            />
 
-      <button id="submitNovaNoticia">Postar notícia</button>
+            <button
+              class="btn btn-blue-simple buttonSubmitNovaNoticia"
+              id="submitNovaNoticia"
+            >
+              Postar notícia
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8"></div>
+      </div>
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
+    <script src="../../../dist/js/popper.min.js"></script>
     <script src="../../../dist/js/bootstrap.min.js"></script>
+    <script src="../../../dist/js/bootstrap-select.min.js"></script>
     <script src="../general/generalScript.js"></script>
     <script src="noticiaNova.js "></script>
   </body>

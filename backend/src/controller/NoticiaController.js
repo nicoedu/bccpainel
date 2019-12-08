@@ -20,7 +20,7 @@ exports.list_noticias_by_dept = function(req, res) {
 };
 
 exports.get_noticias_by_search_query = function(req, res) {
-  Noticia.getNoticiaByQuery(req.query.search, function(err, noticias) {
+  Noticia.getNoticiaByQuery(req.params.search, function(err, noticias) {
     if (err) res.send(err);
     res.send(noticias);
   });

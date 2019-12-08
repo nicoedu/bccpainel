@@ -4,6 +4,10 @@ body {
   font-family: "Fira Sans", sans-serif;
 }
 
+.container {
+  margin-top: 0;
+}
+
 .navbar a {
   font-size: 1.5em !important;
 }
@@ -50,5 +54,16 @@ a {
   line-height: 3vh;
   font-family: "Fira Sans", sans-serif;
   font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-blue-inline {
+  background: #0a286c;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  line-height: 3vh;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
   text-decoration: none;
 }

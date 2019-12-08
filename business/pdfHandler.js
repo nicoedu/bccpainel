@@ -108,7 +108,7 @@ function getSalaryComposition(arrayItens) {
 
 function toTimestamp(dateStr) {
   var parts = dateStr.split("/");
-  var date = new Date(parts[2], parts[1] - 1, parts[0]);
+  var date = new Date(Date.UTC(parts[2], parts[1] - 1, parts[0]));
   return date.getTime() / 1000;
 }
 
