@@ -48,6 +48,7 @@ routes.get(
 //Routes to filesupload
 routes.post("/upload", busboy(), FileController.save_pdf);
 routes.post("/image", busboy(), FileController.save_image);
+routes.get("/image", FileController.send_image);
 routes.get("/downloadpdf", FileController.send_pdf);
 
 //Routes to departamento

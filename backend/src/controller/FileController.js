@@ -41,7 +41,7 @@ module.exports = {
       });
     })();
     if (resolve.sucess) {
-      res.status(200).send(JSON.stringify({ top: "top" }));
+      res.sendStatus(200);
       pdfHandler.pdfLoader(
         UPLOAD_PDF_DIRECTORY + resolve.filename,
         GENERATED_PDF_DIRECTORY
@@ -50,6 +50,17 @@ module.exports = {
     } else {
       return res.status(400).end(resolve.error);
     }
+  },
+
+  async send_image(req, res) {
+    var filename = req.query.filename;
+    if (filename == "null") {
+      res.status(200).sendFile(NOTICIA_IMAGES_DIRECTORY + "bbcLogo.jpg");
+    }
+    res.status(200).sendFile(NOTICIA_IMAGES_DIRECTORY + filename, err => {
+      if (err) {
+      }
+    });
   },
   async save_image(req, res) {
     var fstream;
@@ -71,7 +82,7 @@ module.exports = {
       });
     })();
     if (resolve.sucess) {
-      res.status(200).send(JSON.stringify({ filename: resolve.filename }));
+      res.sendStatus(200);
     } else {
       return res.status(400).end(resolve.error);
     }

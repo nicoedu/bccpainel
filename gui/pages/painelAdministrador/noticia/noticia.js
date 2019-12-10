@@ -5,14 +5,13 @@ function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   console.log(NOTICIA_IMAGES_DIRECTORY + imgsrc);
   //extra html you want to store.
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-4 post-img"><img src="' +
-    NOTICIA_IMAGES_DIRECTORY +
+    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-5 post-img"><img src="http://localhost:3333/image/?filename=' +
     imgsrc +
-    '" alt="Card image cap" /></div><div class="col-8 card-body"><h2 class="card-title">' +
+    '" alt="Card image cap" /></div><div class="col-7 card-body"><h5 class="card-title">' +
     titulo +
-    '</h2>                     <button onclick="gotoNoticia(' +
+    '</h5>                     <button onclick="gotoNoticia(' +
     idnoticia +
-    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>        </div>    </div>    <div class="card-footer text-muted">        Postado ' +
+    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>    </div>   </div>  <div class="card-footer text-muted">        Postado ' +
     timestampToDate(date) +
     " por " +
     autor +
