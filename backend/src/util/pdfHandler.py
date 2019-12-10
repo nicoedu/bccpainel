@@ -7,10 +7,16 @@ def main(timestamp, inputpdf, url_folder):
         output = PdfFileWriter()
         output.addPage(inputpdf.getPage(i))
         try:
-            with open(url_folder + "%s-%s.pdf" % (i, timestamp), "wb") as outputStream:
-                output.write(outputStream)
-        except Exception as e:
-            print(e)
+            file = open(url_folder + "%s-%s.pdf" % (i, timestamp), "rb")
+            continue
+        except FileNotFoundError:
+            try:
+                with open(url_folder + "%s-%s.pdf" % (i, timestamp), "wb") as outputStream:
+                    output.write(outputStream)
+            except Exception as e:
+                print(e)
+        finally:
+            file.close()
 
 
 if __name__ == '__main__':

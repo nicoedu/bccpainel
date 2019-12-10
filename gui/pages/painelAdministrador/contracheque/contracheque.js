@@ -48,14 +48,21 @@
 
 function startUpload(files) {
   var formData = new FormData();
+  var progressBar = document.querySelector(".progress-bar");
+  var uploadStatus = document.getElementById("uploadStatus");
   for (var i = 0; i < files.length; i++) {
+    if (files[i].type != "application/pdf") {
+      progressBar.classList = "progress-bar bg-danger";
+      progressBar.setAttribute("style", "width: 100%");
+      uploadStatus.setAttribute("style", "color: #dc3545");
+      uploadStatus.innerHTML = "Formato de arquivo inválido!";
+      return;
+    }
     formData.append(files[i].name, files[i]);
   }
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:3333/upload", true);
 
-  var progressBar = document.querySelector(".progress-bar");
-  var uploadStatus = document.getElementById("uploadStatus");
   uploadStatus.innerHTML = "O arquivo está sendo enviado. Aguarde...";
 
   xhr.upload.onprogress = function(e) {

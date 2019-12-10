@@ -1,29 +1,32 @@
 .wrapper {
-    padding-top: 10vh;
-    height: 90vh;
+  padding-top: 10vh;
+  height: 90vh;
 }
 
 .col {
-    align-items: center;
+  align-items: center;
 }
 
 .painel-item {
-    margin: 2vh auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    height: 20vh;
-    align-items: center;
-    align-content: center;
-    max-width: 150px;
-    max-height: 160px;
+  margin: 2vh auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 20vh;
+  align-items: center;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+  max-height: 160px;
+  cursor: pointer;
 }
 
-.painel-item img {
-    margin: 10%;
-    width: 100%;
+.painel-item i {
+  font-size: 3rem;
+  margin-top: 10%;
 }
 
 .painel-item p {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 25%;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 25%;
 }

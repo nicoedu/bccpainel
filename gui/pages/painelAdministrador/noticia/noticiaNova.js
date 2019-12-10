@@ -1,13 +1,21 @@
 function sendNoticia() {
   var formData = new FormData();
-  var imagem_endereco = new Date().getTime().toString();
-  var imagem = document.getElementById("imagem").files[0];
-  formData.append(imagem_endereco, imagem);
+  try {
+    var file = document.getElementById("imagem").files[0];
+    console.log(file);
+    extension = file.name.substr(file.name.lastIndexOf("."));
+    var imagem_endereco = new Date().getTime().toString() + extension;
+    formData.append("file", file, imagem_endereco);
+  } catch (event) {
+    console.log(event);
+    var imagem_endereco = null;
+  }
 
   var titulo = document.getElementById("titulo").value;
   var texto = document.getElementById("texto").value;
   var departamento = $("#multiselect").val();
   var postado_por = sessionStorage.getItem("cpf");
+  let checks = 0;
   departamento.length == 0 || departamento == "null"
     ? (departamento = null)
     : (departamento = JSON.stringify(departamento));
@@ -19,24 +27,38 @@ function sendNoticia() {
     postado_por,
     departamento
   };
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:3333/image", true);
-  xhr.onload = function(event) {
-    response = JSON.parse(event.target.response);
-    noticiaObject.imagem_endereco = response.filename;
-    let xhr2 = new XMLHttpRequest();
-    xhr2.open("POST", "http://localhost:3333/noticia", true);
-    xhr2.setRequestHeader("Content-type", "application/json");
-    xhr2.onload = function(event) {
-      window.location = "./noticia.html";
+  console.log(imagem_endereco);
+  if (imagem_endereco != null) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3333/image", true);
+    xhr.onload = function(event) {
+      checks += 1;
+      goToNoticiaPage(checks);
     };
-    xhr2.send(JSON.stringify(noticiaObject));
+    xhr.onerror = function(event) {
+      console.log(event);
+    };
+    xhr.send(formData);
+  }
+  let xhr2 = new XMLHttpRequest();
+  xhr2.open("POST", "http://localhost:3333/noticia", true);
+  xhr2.setRequestHeader("Content-type", "application/json");
+  xhr2.onload = function(event) {
+    checks += 1;
+    goToNoticiaPage(checks);
   };
-  xhr.onerror = function(event) {
-    console.log(event);
-    callback(false, event);
+  xhr2.onerror = function(event) {
+    console.log("error");
   };
-  xhr.send(formData);
+
+  xhr2.send(JSON.stringify(noticiaObject));
+}
+
+function goToNoticiaPage(checks) {
+  if (checks < 2) {
+    return false;
+  }
+  window.location = "./noticia.html";
 }
 
 function putOptions(departamentos, departamento) {

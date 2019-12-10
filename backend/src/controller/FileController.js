@@ -34,7 +34,7 @@ module.exports = {
             resolve({ sucess: true, filename: filename });
           });
           fstream.on("error", function(err) {
-            console.log(err);
+            console.log("teste" + err);
             reject({ sucess: false, error: err });
           });
         });
@@ -57,14 +57,11 @@ module.exports = {
     var resolve = await (async () => {
       return new Promise((resolve, reject) => {
         req.busboy.on("file", function(fieldname, file, filename) {
-          fileFormat = filename.split(".")[1];
           console.log("Uploading: " + filename);
-          fstream = fs.createWriteStream(
-            NOTICIA_IMAGES_DIRECTORY + fieldname + "." + fileFormat
-          );
+          fstream = fs.createWriteStream(NOTICIA_IMAGES_DIRECTORY + filename);
           file.pipe(fstream);
           fstream.on("close", function() {
-            resolve({ sucess: true, filename: fieldname + "." + fileFormat });
+            resolve({ sucess: true, filename: filename });
           });
           fstream.on("error", function(err) {
             console.log(err);

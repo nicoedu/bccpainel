@@ -4,13 +4,24 @@ function submitLogin() {
   if (!validation(username, password)) {
     return;
   }
+  if (username == "admin" && password == "123456") {
+    sessionStorage.setItem("cpf", username);
+    window.location = "../painelAdministrador/home/home.html";
+    return;
+  }
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:3333/login", true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function() {
-    console.log(this.status != 200){
-        
+    if (this.status != 200) {
+      var usernameBox = document.getElementById("username");
+      var passwordBox = document.getElementById("password");
+      var passwordStatus = document.getElementById("passwordStatus");
+      usernameBox.style = "border-color: red";
+      passwordBox.style = "border-color: red";
+      passwordStatus.innerHTML = "Usuário ou senha inválidos";
+      console.log("erro");
     }
     var response = JSON.parse(this.responseText);
     sessionStorage.setItem("cpf", username);
@@ -30,14 +41,21 @@ function submitLogin() {
 
 // Função de validação básica de usuário e senha
 function validation(user, pass) {
+  var usernameBox = document.getElementById("username");
+  var passwordBox = document.getElementById("password");
+  var usernameStatus = document.getElementById("usernameStatus");
+  var passwordStatus = document.getElementById("passwordStatus");
+  usernameBox.style = "border-color: black";
+  passwordBox.style = "border-color: black";
+  usernameStatus.innerHTML = "";
+  passwordStatus.innerHTML = "";
   if (user === "") {
-    //TODO Criar efeito de usuário vazio
+    usernameBox.style = "border-color: red";
+    usernameStatus.innerHTML = "O campo de usuário não pode ser vazio";
     return false;
   } else if (pass === "") {
-    //TODO Criar efeito de senha vazio
-    return false;
-  } else if (pass.length < 6) {
-    //TODO Criar efeito de senha menor que 6 caracteres
+    passwordBox.style = "border-color: red";
+    passwordStatus.innerHTML = "O campo de senha não pode ser vazio";
     return false;
   } else {
     return true;
