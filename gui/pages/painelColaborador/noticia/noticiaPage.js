@@ -12,7 +12,12 @@ function timestampToDate(timestamp) {
 
 function getNoticiaPorId(id) {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3333/noticia?id=" + id, true);
+  xhr.open(
+    "GET",
+    "https://painel.bbcvigilancia.com.br/api/noticia?id=" + id,
+    true
+  );
+  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   xhr.onload = function() {
     var noticia = JSON.parse(this.responseText)[0];
     var titulo = document.getElementById("titulo");

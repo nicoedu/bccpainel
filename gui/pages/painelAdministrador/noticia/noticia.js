@@ -2,10 +2,8 @@ const NOTICIA_IMAGES_DIRECTORY =
   "/home/nicoedu/Documents/BBC/files/images/noticia/";
 
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
-  console.log(NOTICIA_IMAGES_DIRECTORY + imgsrc);
-  //extra html you want to store.
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-5 post-img"><img src="http://localhost:3333/image/?filename=' +
+    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-5 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image/?filename=' +
     imgsrc +
     '" alt="Card image cap" /></div><div class="col-7 card-body"><h5 class="card-title">' +
     titulo +
@@ -27,11 +25,18 @@ function timestampToDate(timestamp) {
 
 function putPost(optional = "") {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3333/noticias" + optional, true);
+  xhr.open(
+    "GET",
+    "https://painel.bbcvigilancia.com.br/api/noticias" + optional,
+    true
+  );
 
+  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   var noticiasElement = document.getElementById("noticia");
   xhr.onload = function() {
     noticias = JSON.parse(this.responseText);
+    noticias = noticias.noticias;
+    console.log(noticias);
     noticiasElement.innerHTML = "";
     if (noticias.length == 0) {
       noticiasElement.classList = "empityNoticia";
@@ -79,8 +84,12 @@ function putOptions(departamentos, departamento) {
 
 function getListaDepartamento(callback) {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3333/departamentos", true);
-
+  xhr.open(
+    "GET",
+    "https://painel.bbcvigilancia.com.br/api/departamentos",
+    true
+  );
+  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       callback(true, xhr.responseText);

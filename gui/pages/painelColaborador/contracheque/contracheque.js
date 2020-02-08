@@ -4,7 +4,7 @@ $(function() {
     var selectMes = document.getElementById("selectMes");
     var selectAno = document.getElementById("selectAno");
     adjustedDate = selectAno.value + "-" + selectMes.value;
-    getPdfFile(dateToTimestamp(selectAno.value, selectMes.value));
+    getPdfFile(adjustedDate);
   });
 
   $("#pdfDownload").click(() => {
@@ -50,14 +50,18 @@ function dateToTimestamp(ano, mes) {
 
 function getPdfFile(date) {
   var cpf = sessionStorage.getItem("cpf");
-  var xhr = new XMLHttpRequest();
   var buttonDownload = document.getElementById("pdfDownload");
   var pdfArea = document.getElementById("pdfArea");
   var errorArea = document.getElementById("errorArea");
+  var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "http://localhost:3333/contracheque/" + date + "/?cpf=" + cpf
+    "https://painel.bbcvigilancia.com.br/api/contracheque/" +
+      date +
+      "/?cpf=" +
+      cpf
   );
+  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   xhr.onload = function() {
     response = JSON.parse(this.response);
     if (response.length == 0) {
@@ -69,10 +73,11 @@ function getPdfFile(date) {
     var xhr2 = new XMLHttpRequest();
     xhr2.open(
       "GET",
-      //"http://localhost:3333/downloadpdf?cpf=" + cpf + "&date=" + date
-      "http://localhost:3333/downloadpdf?filename=" +
+      //"https://painel.bbcvigilancia.com.br/api/downloadpdf?cpf=" + cpf + "&date=" + date
+      "https://painel.bbcvigilancia.com.br/api/downloadpdf?filename=" +
         response[0].arquivo_endereco
     );
+    xhr2.setRequestHeader("auth-token", sessionStorage.getItem("token"));
     xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr2.onload = function() {
       pdfBase64 = this.response;

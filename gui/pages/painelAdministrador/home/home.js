@@ -5,13 +5,13 @@ $(function() {
 });
 
 function toContracheque() {
-  window.location = "../contracheque/contracheque.html";
+  window.location = "../contracheque/index.html";
 }
 
 function toNoticia() {
-  window.location = "../noticia/noticia.html";
+  window.location = "../noticia/index.html";
 }
 
 function toConta() {
-  window.location = "../usuario/usuario.html";
+  window.location = "../usuario/index.html";
 }

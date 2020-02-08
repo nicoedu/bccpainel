@@ -27,11 +27,16 @@ function timestampToDate(timestamp) {
 
 function putPost(optional = "") {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3333/noticias" + optional, true);
-
+  xhr.open(
+    "GET",
+    "https://painel.bbcvigilancia.com.br/api/noticias" + optional,
+    true
+  );
+  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   var noticiasElement = document.getElementById("noticia");
   xhr.onload = function() {
     noticias = JSON.parse(this.responseText);
+    noticias = noticias.noticias;
     noticiasElement.innerHTML = "";
     noticias.map(
       ({
@@ -69,6 +74,5 @@ $(function() {
     searchURL = "/search/" + searchInput.value;
     putPost(searchURL);
   });
-  var departamento = sessionStorage.getItem("departamento");
-  putPost(departamento + "?include=true");
+  putPost();
 });

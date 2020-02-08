@@ -2,7 +2,8 @@
 const Noticia = require("../models/Noticia");
 
 exports.list_all_noticias = function(req, res) {
-  Noticia.getAllNoticia(function(err, noticia) {
+  var page = parseInt(req.params.page, 10) || 0;
+  Noticia.getAllNoticia(page, function(err, noticia) {
     if (err) res.send(err);
     res.send(noticia);
   });
@@ -64,10 +65,12 @@ exports.update_a_noticia = function(req, res) {
 
 exports.delete_a_noticia = function(req, res) {
   Noticia.remove(req.query.id, function(err, noticia) {
-    if (err) {
+        if (err) {
       res.status(400).send(err);
       return;
+    }else{
+
+      res.status(200).json({ ok: true, message: "Noticia removida com sucesso" });
     }
-    res.status(200).json({ message: "Usuário desativado com sucesso" });
   });
 };

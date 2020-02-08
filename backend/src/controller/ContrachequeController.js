@@ -30,6 +30,10 @@ exports.create_a_contracheque = function(req, res) {
 };
 
 exports.read_a_contracheque = function(req, res) {
+      if (req.user.id != req.query.cpf) {
+    res.status(401).send("Invalid Token");
+    return;
+  }
     Contracheque.getContrachequeByCpf(req.query.cpf, function(err, contracheque) {
         if (err) {
             res.status(400).send(err);
@@ -40,6 +44,10 @@ exports.read_a_contracheque = function(req, res) {
 };
 
 exports.read_a_contracheque_date = function(req, res) {
+      if (req.user.id != req.query.cpf) {
+    res.status(401).send("Invalid Token");
+    return;
+  }
     Contracheque.getContrachequeByCpfandDate(
         req.query.cpf,
         req.params.data,

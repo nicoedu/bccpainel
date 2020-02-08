@@ -18,13 +18,23 @@ module.exports = {
 
         //Create token
         var token = null;
-        if (user.departamento == "001") {
-          token = jwt.sign({ id: user.cpf }, process.env.TOKEN_SECRET);
+        var admin = false;
+        if (credentials.username == "admin") {
+          token = jwt.sign({ id: user.cpf }, process.env.TOKEN_SECRET_ADMIN, {
+            expiresIn: "1h"
+          });
+          admin = true;
+          res.header("auth-token", token);
+        } else {
+          token = jwt.sign({ id: user.cpf }, process.env.TOKEN_SECRET, {
+            expiresIn: "1h"
+          });
           res.header("auth-token", token);
         }
-        return res.status(200).json({
+        res.status(200).json({
           ok: true,
           token: token,
+          admin: admin,
           departamento: user.departamento
         });
       }
@@ -45,6 +55,23 @@ module.exports = {
         User.updatePasswordByCpf(
           credentials.username,
           credentials.passwordNew,
+          (err, user) => {
+            return res.json({ ok: true });
+          }
+        );
+      }
+    );
+  },
+  async updatePasswordAdmin(req, res) {
+    const credentials = req.body;
+
+    const user = User.getUserByCpfWithPassword(
+      credentials.username,
+      (err, user) => {
+        if (err) return res.status(401).send("Senha inválida");
+        User.updatePasswordByCpf(
+          credentials.username,
+          "123456",
           (err, user) => {
             return res.json({ ok: true });
           }

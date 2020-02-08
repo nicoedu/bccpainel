@@ -4,13 +4,8 @@ function submitLogin() {
   if (!validation(username, password)) {
     return;
   }
-  if (username == "admin" && password == "123456") {
-    sessionStorage.setItem("cpf", username);
-    window.location = "../painelAdministrador/home/home.html";
-    return;
-  }
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:3333/login", true);
+  xhr.open("POST", "https://painel.bbcvigilancia.com.br/api/login", true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function() {
@@ -22,15 +17,16 @@ function submitLogin() {
       passwordBox.style = "border-color: red";
       passwordStatus.innerHTML = "Usuário ou senha inválidos";
       console.log("erro");
+      return;
     }
     var response = JSON.parse(this.responseText);
+    console.log(response);
     sessionStorage.setItem("cpf", username);
     sessionStorage.setItem("token", response.token);
-    if (response.token) {
-      window.location = "../painelAdministrador/home/home.html";
+    if (response.admin) {
+      window.location = "../painelAdministrador/home/index.html";
     } else {
-      sessionStorage.setItem("departamento", response.departamento);
-      window.location = "../painelColaborador/noticia/noticia.html";
+      window.location = "../painelColaborador/noticia/index.html";
     }
   };
   xhr.onerror = function(event) {

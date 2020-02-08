@@ -24,6 +24,10 @@ exports.create_a_user = function(req, res) {
 };
 
 exports.read_a_user = function(req, res) {
+      if (req.user.id != req.query.cpf) {
+    res.status(401).send(req.query.cpf);
+    return;
+  }
   User.getUserByCpf(req.query.cpf, function(err, user) {
     if (err) {
       res.status(400).send(err);
@@ -34,6 +38,10 @@ exports.read_a_user = function(req, res) {
 };
 
 exports.update_a_user = function(req, res) {
+      if (req.user.id != req.query.cpf && req.user.id != "admin" && req.user.id != "ADMIN") {
+    res.status(401).send("Invalid Token");
+    return;
+  }
   User.updatePasswordByCpf(req.query.cpf, req.body.password, function(
     err,
     user

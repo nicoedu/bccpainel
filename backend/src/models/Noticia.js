@@ -37,7 +37,7 @@ Noticia.getNoticiaById = function(idnoticia, result) {
 };
 Noticia.getNoticiaByQuery = function(query, result) {
   sql.query(
-    "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where texto like '%" +
+    "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where texto like '%" +
       query +
       "%'",
     function(err, res) {
@@ -50,18 +50,54 @@ Noticia.getNoticiaByQuery = function(query, result) {
     }
   );
 };
-Noticia.getAllNoticia = function(result) {
-  sql.query(
-    "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf",
-    function(err, res) {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-      } else {
-        result(null, res);
-      }
+Noticia.getAllNoticia = function(page, result) {
+  var numRows;
+  var queryPagination;
+  var numPages;
+  var numPerPage = 20;
+  var skip = page * numPerPage;
+  // Here we compute the LIMIT parameter for MySQL query
+   var limit = skip + ", " + numPerPage;
+  sql.query("SELECT count(*) as numRows FROM noticia", function(err, res) {
+    if (err) {
+      console.log(err);
+      result(err, null);
+      return;
     }
-  );
+    numRows = res[0].numRows;
+    numPages = Math.ceil(numRows / 20);
+    sql.query(
+      "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf order by postado_em desc limit " +
+        limit,
+      function(err, res) {
+        if (err) {
+          console.log("error: ", err);
+          result(err, null);
+        } else {
+          var responsePayload = {
+            noticias: res
+          };
+          if (page < numPages) {
+            responsePayload.pagination = {
+              current: page,
+              perPage: numPerPage,
+              previous: page > 0 ? page - 1 : undefined,
+              next: page < numPages - 1 ? page + 1 : undefined
+            };
+            result(null, responsePayload);
+          } else
+            responsePayload.pagination = {
+              err:
+                "queried page " +
+                page +
+                " is >= to maximum page number " +
+                numPages
+            };
+          result(err, null);
+        }
+      }
+    );
+  });
 };
 Noticia.getAllNoticiaByDepartamento = function(
   departamento,
@@ -70,9 +106,9 @@ Noticia.getAllNoticiaByDepartamento = function(
 ) {
   includeAllDepartament
     ? (query =
-        "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%' or noticia.departamento IS NULL")
+        "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%' or noticia.departamento IS NULL")
     : (query =
-        "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%'");
+        "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%'");
 
   sql.query(query, '"' + departamento + '"', function(err, res) {
     if (err) {
@@ -100,7 +136,7 @@ Noticia.updateById = function(id, noticia, result) {
   );
 };
 Noticia.remove = function(id, result) {
-  sql.query("UPDATE noticia SET ativo = 0 WHERE idnoticia = ?", [id], function(
+  sql.query("DELETE FROM noticia WHERE idnoticia = ?", [id], function(
     err,
     res
   ) {

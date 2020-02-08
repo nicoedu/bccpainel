@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-//const mysql = require("mysql");
 const bodyParser = require("body-parser");
+require('dotenv').config();
+
+console.log(process.env.DBHOST);
 const routes = require("./routes");
-require("dotenv/config");
 
 //midlewares
 app.use(cors());

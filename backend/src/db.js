@@ -1,5 +1,4 @@
 "user strict";
-require("dotenv/config");
 var mysql = require("mysql");
 
 //local mysql db connection
