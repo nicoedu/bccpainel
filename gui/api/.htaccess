@@ -1,0 +1,8 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/bbcvig/nodeserv"
+PassengerBaseURI "/api"
+PassengerNodejs "/home/bbcvig/nodevenv/nodeserv/10/bin/node"
+PassengerAppType node
+PassengerStartupFile /home/bbcvig/nodeserv/src/app.js
+PassengerAppLogFile "/home/bbcvig/nodeserv/logs"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END

@@ -1,97 +1,94 @@
 +jQuery(function($) {
-	'use strict';
+  "use strict";
 
-	// UPLOAD CLASS DEFINITION
-	// ======================
+  // UPLOAD CLASS DEFINITION
+  // ======================
 
-	var dropZone = document.getElementById('drop-zone');
-	var uploadPDF = document.getElementById('uploadPDF');
-	var progressBar = document.getElementById('progressBar');
-	var dropText = document.getElementById('dropText');
-	var uploadStatus = document.getElementById('uploadStatus');
-	var uploadWarning = document.getElementById('uploadWarning');
-	var datebutton = document.getElementById('datebutton');
-	var timestamp = '';
+  var dropZone = document.getElementById("drop-zone");
+  var uploadPDF = document.getElementById("uploadPDF");
+  var progressBar = document.getElementById("progressBar");
+  var dropText = document.getElementById("dropText");
+  var uploadStatus = document.getElementById("uploadStatus");
+  var uploadWarning = document.getElementById('uploadWarning');
+  var datebutton = document.getElementById("datebutton");
+  var timestamp = "";
 
-	datebutton.addEventListener('click', function(e) {
-		var selectMes = document.getElementById('selectMes');
-		var selectAno = document.getElementById('selectAno');
-		timestamp = selectAno.value + '-' + selectMes.value;
-		dropZone.setAttribute('style', 'display: flex');
-	});
+  datebutton.addEventListener("click", function(e) {
+    var selectMes = document.getElementById("selectMes");
+    var selectAno = document.getElementById("selectAno");
+    timestamp = selectAno.value + "-" + selectMes.value;
+    dropZone.setAttribute("style", "display: flex");
+  });
 
-	dropZone.addEventListener('click', function(e) {
-		self.procuraArquivoExplorador();
-	});
+  dropZone.addEventListener("click", function(e) {
+    self.procuraArquivoExplorador();
+  });
 
-	uploadPDF.addEventListener('change', function(e) {
-		e.preventDefault();
-		dropZone.className = 'isUploading';
-		progressBar.className = 'progressArea';
-		var uploadFiles = document.getElementById('uploadPDF').files;
-		self.startUpload(timestamp, uploadFiles);
-		return false;
-	});
+  uploadPDF.addEventListener("change", function(e) {
+    e.preventDefault();
+    dropZone.className = "isUploading";
+    progressBar.className = "progressArea";
+    var uploadFiles = document.getElementById("uploadPDF").files;
+    self.startUpload(timestamp, uploadFiles);
+    return false;
+  });
 
-	dropZone.ondrop = function(e) {
-		e.preventDefault();
-		uploadStatus.innerHTML = 'O arquivo está sendo enviado. Aguarde...';
-		this.className = 'isUploading';
-		progressBar.className = 'progressArea';
+  dropZone.ondrop = function(e) {
+    e.preventDefault();
+    uploadStatus.innerHTML = "O arquivo está sendo enviado. Aguarde...";
+    this.className = "isUploading";
+    progressBar.className = "progressArea";
 
-		self.startUpload(timestamp, e.dataTransfer.files);
-	};
+    self.startUpload(timestamp, e.dataTransfer.files);
+  };
 
-	dropZone.ondragover = function() {
-		this.className = 'upload-drop-zone drop';
-		dropText.innerHTML = 'Solte para inserir o arquivo';
+  dropZone.ondragover = function() {
+    this.className = "upload-drop-zone drop";
+    dropText.innerHTML = "Solte para inserir o arquivo";
 
-		return false;
-	};
+    return false;
+  };
 
-	dropZone.ondragleave = function() {
-		this.className = 'upload-drop-zone';
-		dropText.innerHTML = 'Clique ou arraste para inserir o arquivo';
-		return false;
-	};
+  dropZone.ondragleave = function() {
+    this.className = "upload-drop-zone";
+    dropText.innerHTML = "Clique ou arraste para inserir o arquivo";
+    return false;
+  };
 });
 
 function dateToTimestamp(ano, mes) {
-	var date = new Date(Date.UTC(ano, mes));
-	return date.getTime() / 1000;
+  var date = new Date(Date.UTC(ano, mes));
+  return date.getTime() / 1000;
 }
 
 function startUpload(timestamp, files) {
-	var formData = new FormData();
-	var progressBar = document.querySelector('.progress-bar');
-	var uploadStatus = document.getElementById('uploadStatus');
-	for (var i = 0; i < files.length; i++) {
-		if (files[i].type != 'application/pdf') {
-			progressBar.classList = 'progress-bar bg-danger';
-			progressBar.setAttribute('style', 'width: 100%');
-			uploadStatus.setAttribute('style', 'color: #dc3545');
-			uploadStatus.innerHTML = 'Formato de arquivo inválido!';
-			return;
-		}
-		formData.append(timestamp.toString(), files[i]);
-	}
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', 'http://localhost:3333/api/upload', true);
-	xhr.setRequestHeader(
-		'auth-token',
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiaWF0IjoxNTgwOTc5NzQwLCJleHAiOjE1ODA5ODMzNDB9.4qBKxCFUTRCVfeC3oCtPze_nBsTPPHXTzEwocfTBhD0'
-	);
+  var formData = new FormData();
+  var progressBar = document.querySelector(".progress-bar");
+  var uploadStatus = document.getElementById("uploadStatus");
+  for (var i = 0; i < files.length; i++) {
+    if (files[i].type != "application/pdf") {
+      progressBar.classList = "progress-bar bg-danger";
+      progressBar.setAttribute("style", "width: 100%");
+      uploadStatus.setAttribute("style", "color: #dc3545");
+      uploadStatus.innerHTML = "Formato de arquivo inválido!";
+      return;
+    }
+    formData.append(timestamp.toString(), files[i]);
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://painel.bbcvigilancia.com.br/api/upload", true);
+  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
 
-	uploadStatus.innerHTML = 'O arquivo está sendo enviado. Aguarde...';
+  uploadStatus.innerHTML = "O arquivo está sendo enviado. Aguarde...";
 
-	xhr.upload.onprogress = function(e) {
+  xhr.upload.onprogress = function(e) {
 		if (e.lengthComputable) {
 			var percentage = e.loaded / e.total * 100;
 			progressBar.setAttribute('style', 'width: ' + percentage + '%');
 			if (percentage == 100) {
 				progressBar.classList = 'progress-bar progress-bar-striped progress-bar-animated';
 				uploadStatus.innerHTML = 'Processando dados do arquivo...';
-				uploadWarning.innerHTML = 'Não feche essa janela até o processo ser concluido!';
+				uploadWarning.innerHTML = 'Não feche essa janela até o processo ser concluído!';
 			}
 		}
 	};
@@ -110,9 +107,9 @@ function startUpload(timestamp, files) {
 		uploadStatus.innerHTML = 'Falha ao enviar arquivo!';
 	};
 	xhr.send(formData);
-	return false;
+	return true;
 }
 
 function procuraArquivoExplorador() {
-	$('#uploadPDF').trigger('click');
+  $("#uploadPDF").trigger("click");
 }
