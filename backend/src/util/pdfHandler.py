@@ -3,6 +3,7 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 
 
 def main(timestamp, inputpdf, url_folder):
+    print(inputpdf.numPages)
     for i in range(inputpdf.numPages):
         output = PdfFileWriter()
         output.addPage(inputpdf.getPage(i))
@@ -25,5 +26,6 @@ if __name__ == '__main__':
     timestamp = sys.argv[1]
     fileurl = sys.argv[2]
     folderurl = sys.argv[3]
-    inputpdf = PdfFileReader(open(fileurl, "rb"))
+    inputpdf = PdfFileReader(open(fileurl, "rb"), strict=False)
     main(timestamp, inputpdf, folderurl)
+    sys.stdout.flush()

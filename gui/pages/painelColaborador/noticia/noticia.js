@@ -43,7 +43,6 @@ function putPost(optional = "") {
         idnoticia,
         imagem_endereco,
         postado_em,
-        postado_por,
         texto,
         titulo
       }) => {
@@ -53,7 +52,6 @@ function putPost(optional = "") {
           titulo,
           texto,
           postado_em,
-          postado_por
         );
       }
     );

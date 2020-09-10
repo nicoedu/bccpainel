@@ -1,6 +1,3 @@
-const NOTICIA_IMAGES_DIRECTORY =
-  "/home/nicoedu/Documents/BBC/files/images/noticia/";
-
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   return (
     '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-5 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image/?filename=' +
@@ -47,7 +44,6 @@ function putPost(optional = "") {
         idnoticia,
         imagem_endereco,
         postado_em,
-        postado_por,
         texto,
         titulo
       }) => {
@@ -58,7 +54,6 @@ function putPost(optional = "") {
           titulo,
           texto,
           postado_em,
-          postado_por
         );
       }
     );
@@ -73,47 +68,7 @@ function gotoNoticia(id) {
   window.location = "./noticiaPage.html?id=" + id;
 }
 
-function putOptions(departamentos, departamento) {
-  departamentos.innerHTML +=
-    '<option value="' +
-    departamento.iddepartamento +
-    '">' +
-    departamento.nomedepartamento +
-    "</option>";
-}
-
-function getListaDepartamento(callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "GET",
-    "https://painel.bbcvigilancia.com.br/api/departamentos",
-    true
-  );
-  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-      callback(true, xhr.responseText);
-    }
-  };
-  xhr.onerror = function(event) {
-    console.log(event);
-    callback(false, event);
-  };
-  xhr.send();
-}
-
 $(function() {
-  getListaDepartamento((sucess, response) => {
-    if (sucess) {
-      var departamentos = document.getElementById("multiselect");
-      JSON.parse(response).map(departamento => {
-        putOptions(departamentos, departamento);
-      });
-      departamentos.classList = "selectpicker";
-      $(".selectpicker").selectpicker();
-    }
-  });
-
   $("#searchButton").on("click", () => {
     var searchInput = document.getElementById("searchInput");
     searchURL = "/search/" + searchInput.value;

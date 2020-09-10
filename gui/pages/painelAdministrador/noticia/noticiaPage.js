@@ -22,7 +22,6 @@ function getNoticiaPorId(id) {
     var noticia = JSON.parse(this.responseText)[0];
     var titulo = document.getElementById("titulo");
     var texto = document.getElementById("texto");
-    var postado_por = document.getElementById("postado_por");
     var postado_em = document.getElementById("postado_em");
     var imagem = document.getElementById("imagem");
     imagem.src =
@@ -30,7 +29,6 @@ function getNoticiaPorId(id) {
       noticia.imagem_endereco;
     titulo.innerHTML = noticia.titulo;
     texto.innerHTML = noticia.texto;
-    postado_por.innerHTML += noticia.postado_por;
     postado_em.innerHTML += timestampToDate(noticia.postado_em);
   };
   xhr.onerror = function(event) {
