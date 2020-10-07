@@ -1,4 +1,4 @@
-const pdfjsLib = require('pdfjs-dist');
+const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js');
 const pdfDataController = require('../controller/pdfDataController');
 pdfjsLib.workerSrc = 'build/pdf.worker.js';
 
@@ -21,7 +21,7 @@ const pdfLoader = async (res, date, pdf_url, folder_url) => {
 		.then(async (pageData) => {
 			console.log('Extração realizada com sucesso, iniciando inserção no banco de dados');
 			const { spawn } = require('child_process');
-			let pythonProcess = spawn('python', [ process.env.PYTHON_SCRIPT_LOCAL, date, pdf_url, folder_url ], {
+			let pythonProcess = spawn('python', [process.env.PYTHON_SCRIPT_LOCAL, date, pdf_url, folder_url], {
 				detached: true,
 				stdio: 'ignore'
 			});
@@ -37,20 +37,20 @@ const pdfLoader = async (res, date, pdf_url, folder_url) => {
 				insertPromisses.push(pdfDataController.insertIntoDatabase(employee, departament, contracheque));
 			});
 
-			Promise.all(insertPromisses).then(res.status(200).send('ok')).catch((err) => err);
+			Promise.all(insertPromisses).then().catch((err) => err);
 		})
 		.catch((err) => err);
 };
 
 function pageTextHandler(pageNum, PDFDocumentInstance, dateUser) {
 	// Retorna uma promessa quando a página foi extraida com sucesso
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 		PDFDocumentInstance.getPage(pageNum)
-			.then(function(pdfPage) {
+			.then(function (pdfPage) {
 				// Pega o texto de toda a página e salva na variável textContent
 				pdfPage
 					.getTextContent()
-					.then(function(textContent) {
+					.then(function (textContent) {
 						var textItems = textContent.items;
 
 						//variavel que aguarda o momento em que os dados relevantes apareçam
@@ -108,10 +108,32 @@ function getEmployeeAndDepartamentData(arrayDados) {
 	arrayDados = arrayDados.filter((data) => data.height < 8).map((data) => data.str);
 	empregado.matricula = arrayDados[0];
 	empregado.nome = arrayDados[1];
-	empregado.cargo = arrayDados[2];
-	empregado.cpf = arrayDados[4].split(' ')[1].replace(/\./g, '').replace('-', '');
 
-	departamentoData = arrayDados[5].split(' ');
+	if (arrayDados[4].split(' ')[0] == 'CPF:') {
+
+		empregado.cargo = arrayDados[2];
+
+		try {
+			empregado.cpf = arrayDados[4].split(' ')[1].replace(/\./g, '').replace('-', '');
+			departamentoData = arrayDados[5].split(' ');
+		} catch (error) {
+			console.log(error)
+		}
+
+	} else {
+		try {
+			empregado.cargo = arrayDados[3];
+			empregado.cpf = arrayDados[5].split(' ')[1].replace(/\./g, '').replace('-', '');
+			departamentoData = arrayDados[6].split(' ');
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+
+
+
+
 	empregado.departamento = departamentoData[1];
 
 	departamento.id = departamentoData[1];

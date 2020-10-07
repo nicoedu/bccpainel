@@ -27,11 +27,7 @@ exports.insertIntoDatabase = (
             // console.log(err);
             return err;
           } else {
-            // console.log(
-            //     "inserting payroll of user with cpf " +
-            //     contrachequeObject.cpf +
-            //     " into database"
-            // );
+
             Contracheque.createContracheque(contracheque, (err, res) => {
               if (err) {
                 // console.log(err);

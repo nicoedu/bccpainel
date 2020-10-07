@@ -2,13 +2,13 @@
 var sql = require("../db.js");
 
 //Contracheque object constructor
-var Contracheque = function(contracheque) {
+var Contracheque = function (contracheque) {
   this.cpf = contracheque.cpf;
   this.data_referencia = contracheque.data_referencia;
   this.arquivo_endereco = contracheque.arquivo_endereco;
 };
-Contracheque.createContracheque = function(newContracheque, result) {
-  sql.query("INSERT OR REPLACE INTO contracheque set ?", newContracheque, function(
+Contracheque.createContracheque = function (newContracheque, result) {
+  sql.query("REPLACE INTO contracheque set ?", newContracheque, function (
     err,
     res
   ) {
@@ -19,8 +19,8 @@ Contracheque.createContracheque = function(newContracheque, result) {
     }
   });
 };
-Contracheque.getContrachequeByCpf = function(cpf, result) {
-  sql.query("Select * from contracheque where cpf = ? ", cpf, function(
+Contracheque.getContrachequeByCpf = function (cpf, result) {
+  sql.query("Select * from contracheque where cpf = ? ", cpf, function (
     err,
     res
   ) {
@@ -32,8 +32,8 @@ Contracheque.getContrachequeByCpf = function(cpf, result) {
     }
   });
 };
-Contracheque.getAllContracheque = function(result) {
-  sql.query("Select * from contracheque", function(err, res) {
+Contracheque.getAllContracheque = function (result) {
+  sql.query("Select * from contracheque", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -42,7 +42,7 @@ Contracheque.getAllContracheque = function(result) {
     }
   });
 };
-Contracheque.getContrachequeByCpfandDate = function(
+Contracheque.getContrachequeByCpfandDate = function (
   cpf,
   data_referencia,
   result
@@ -50,7 +50,7 @@ Contracheque.getContrachequeByCpfandDate = function(
   sql.query(
     "Select arquivo_endereco from contracheque where cpf = ? and data_referencia = ?",
     [cpf, data_referencia],
-    function(err, res) {
+    function (err, res) {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -60,8 +60,8 @@ Contracheque.getContrachequeByCpfandDate = function(
     }
   );
 };
-Contracheque.remove = function(id, result) {
-  sql.query("DELETE FROM contracheque WHERE cpf = ?", [id], function(err, res) {
+Contracheque.remove = function (id, result) {
+  sql.query("DELETE FROM contracheque WHERE cpf = ?", [id], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
