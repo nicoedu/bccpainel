@@ -9,6 +9,11 @@
   max-width: 50vw;
 }
 
+img{
+    max-width:600px;
+}
+
+
 .form-group {
   width: 100%;
 }

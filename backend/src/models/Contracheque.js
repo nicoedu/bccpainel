@@ -8,7 +8,7 @@ var Contracheque = function(contracheque) {
   this.arquivo_endereco = contracheque.arquivo_endereco;
 };
 Contracheque.createContracheque = function(newContracheque, result) {
-  sql.query("INSERT INTO contracheque set ?", newContracheque, function(
+  sql.query("INSERT OR REPLACE INTO contracheque set ?", newContracheque, function(
     err,
     res
   ) {

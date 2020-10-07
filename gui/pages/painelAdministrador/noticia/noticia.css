@@ -5,6 +5,10 @@
   padding: 10vh 10vw;
 }
 
+img{
+    max-width:600px;
+}
+
 .form-group {
   width: 100%;
 }

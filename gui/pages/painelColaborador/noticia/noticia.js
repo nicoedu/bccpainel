@@ -1,11 +1,10 @@
 const NOTICIA_IMAGES_DIRECTORY =
-  "/home/nicoedu/Documents/BBC/files/images/noticia/";
+  "";
 
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   //extra html you want to store.
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-4 post-img"><img src=' +
-    NOTICIA_IMAGES_DIRECTORY +
+    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-4 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image?filename=' +
     imgsrc +
     '" alt="Card image cap" /></div><div class="col-8 card-body"><h2 class="card-title">' +
     titulo +
@@ -43,6 +42,7 @@ function putPost(optional = "") {
         idnoticia,
         imagem_endereco,
         postado_em,
+        postado_por,
         texto,
         titulo
       }) => {
@@ -52,6 +52,7 @@ function putPost(optional = "") {
           titulo,
           texto,
           postado_em,
+          postado_por
         );
       }
     );

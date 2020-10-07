@@ -34,7 +34,8 @@ module.exports = {
         res.status(200).json({
           ok: true,
           token: token,
-          admin: admin
+          admin: admin,
+          departamento: user.departamento
         });
       }
     );
@@ -72,9 +73,6 @@ module.exports = {
           credentials.username,
           "123456",
           (err, user) => {
-            if (err) {
-              console.log(err);
-            }
             return res.json({ ok: true });
           }
         );
