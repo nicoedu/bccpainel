@@ -1,19 +1,18 @@
 "use strict";
 const User = require("../models/User");
 
-exports.list_all_users = function(req, res) {
-  User.getAllUser(function(err, user) {
-    console.log("controller");
+exports.list_all_users = function (req, res) {
+  User.getAllUser(function (err, user) {
     if (err) res.send(err);
 
     res.send(user);
   });
 };
 
-exports.create_a_user = function(req, res) {
+exports.create_a_user = function (req, res) {
   var new_user = new User(req.body);
   //handles null error
-  User.createUser(new_user, function(err, sucess) {
+  User.createUser(new_user, function (err, sucess) {
     if (err) {
       res.status(400).send(err);
       return;
@@ -23,12 +22,12 @@ exports.create_a_user = function(req, res) {
   });
 };
 
-exports.read_a_user = function(req, res) {
-      if (req.user.id != req.query.cpf) {
+exports.read_a_user = function (req, res) {
+  if (req.user.id != req.query.cpf) {
     res.status(401).send(req.query.cpf);
     return;
   }
-  User.getUserByCpf(req.query.cpf, function(err, user) {
+  User.getUserByCpf(req.query.cpf, function (err, user) {
     if (err) {
       res.status(400).send(err);
       return;
@@ -37,12 +36,12 @@ exports.read_a_user = function(req, res) {
   });
 };
 
-exports.update_a_user = function(req, res) {
-      if (req.user.id != req.query.cpf && req.user.id != "admin" && req.user.id != "ADMIN") {
+exports.update_a_user = function (req, res) {
+  if (req.user.id != req.query.cpf && req.user.id != "admin" && req.user.id != "ADMIN") {
     res.status(401).send("Invalid Token");
     return;
   }
-  User.updatePasswordByCpf(req.query.cpf, req.body.password, function(
+  User.updatePasswordByCpf(req.query.cpf, req.body.password, function (
     err,
     user
   ) {
@@ -54,8 +53,8 @@ exports.update_a_user = function(req, res) {
   });
 };
 
-exports.delete_a_user = function(req, res) {
-  User.remove(req.query.cpf, function(err, user) {
+exports.delete_a_user = function (req, res) {
+  User.remove(req.query.cpf, function (err, user) {
     if (err) {
       res.status(400).send(err);
       return;

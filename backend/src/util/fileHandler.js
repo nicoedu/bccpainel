@@ -51,10 +51,6 @@ module.exports = async (date, origin_folder_url, destiny_folder_url) => {
                 if (err && err.errno != 1062) console.log(err)
 
                 const { spawn } = require('child_process');
-                console.log(process.env.PYTHON_SCRIPT_LOCAL)
-                console.log(date)
-                console.log(origin_folder_url)
-                console.log(destiny_folder_url)
                 let pythonProcess = spawn('python', [process.env.PYTHON_SCRIPT_LOCAL, date, pdfFile, destiny_folder_url], {
                     detached: true,
                     stdio: 'ignore'

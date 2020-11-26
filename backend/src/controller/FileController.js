@@ -85,7 +85,6 @@ module.exports = {
 		var resolve = await (async () => {
 			return new Promise((resolve, reject) => {
 				req.busboy.on('file', function (fieldname, file, filename) {
-					console.log('Uploading: ' + filename);
 					fstream = fs.createWriteStream(NOTICIA_IMAGES_DIRECTORY + filename);
 					file.pipe(fstream);
 					fstream.on('close', function () {
