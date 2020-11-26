@@ -35,7 +35,6 @@ module.exports = {
           ok: true,
           token: token,
           admin: admin,
-          departamento: user.departamento
         });
       }
     );

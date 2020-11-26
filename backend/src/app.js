@@ -4,10 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require('dotenv').config();
 
-console.log(process.env.DBHOST);
 const routes = require("./routes");
 
-//midlewares
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

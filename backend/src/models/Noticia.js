@@ -2,17 +2,15 @@
 var sql = require("../db.js");
 
 //Noticia object constructor
-var Noticia = function(noticia) {
+var Noticia = function (noticia) {
   this.titulo = noticia.titulo;
   this.texto = noticia.texto;
   noticia.postado_em = new Date().getTime().toString();
   this.postado_em = noticia.postado_em;
-  this.departamento = noticia.departamento;
-  this.postado_por = noticia.postado_por;
   this.imagem_endereco = noticia.imagem_endereco;
 };
-Noticia.createNoticia = function(newNoticia, result) {
-  sql.query("INSERT INTO noticia set ?", newNoticia, function(err, res) {
+Noticia.createNoticia = function (newNoticia, result) {
+  sql.query("INSERT INTO noticia set ?", newNoticia, function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -21,11 +19,11 @@ Noticia.createNoticia = function(newNoticia, result) {
     }
   });
 };
-Noticia.getNoticiaById = function(idnoticia, result) {
+Noticia.getNoticiaById = function (idnoticia, result) {
   sql.query(
-    "Select idnoticia,titulo,texto,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where idnoticia = ?",
+    "Select idnoticia,titulo,texto,postado_em, imagem_endereco FROM noticia where idnoticia = ?",
     idnoticia,
-    function(err, res) {
+    function (err, res) {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -35,12 +33,12 @@ Noticia.getNoticiaById = function(idnoticia, result) {
     }
   );
 };
-Noticia.getNoticiaByQuery = function(query, result) {
+Noticia.getNoticiaByQuery = function (query, result) {
   sql.query(
-    "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where texto like '%" +
-      query +
-      "%'",
-    function(err, res) {
+    "Select idnoticia,titulo,postado_em,imagem_endereco FROM noticia where texto like '%" +
+    query +
+    "%'",
+    function (err, res) {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -50,15 +48,15 @@ Noticia.getNoticiaByQuery = function(query, result) {
     }
   );
 };
-Noticia.getAllNoticia = function(page, result) {
+Noticia.getAllNoticia = function (page, result) {
   var numRows;
   var queryPagination;
   var numPages;
   var numPerPage = 20;
   var skip = page * numPerPage;
   // Here we compute the LIMIT parameter for MySQL query
-   var limit = skip + ", " + numPerPage;
-  sql.query("SELECT count(*) as numRows FROM noticia", function(err, res) {
+  var limit = skip + ", " + numPerPage;
+  sql.query("SELECT count(*) as numRows FROM noticia", function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
@@ -67,9 +65,9 @@ Noticia.getAllNoticia = function(page, result) {
     numRows = res[0].numRows;
     numPages = Math.ceil(numRows / 20);
     sql.query(
-      "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf order by postado_em desc limit " +
-        limit,
-      function(err, res) {
+      "Select idnoticia,titulo,postado_em,imagem_endereco FROM noticia order by postado_em desc limit " +
+      limit,
+      function (err, res) {
         if (err) {
           console.log("error: ", err);
           result(err, null);
@@ -99,33 +97,11 @@ Noticia.getAllNoticia = function(page, result) {
     );
   });
 };
-Noticia.getAllNoticiaByDepartamento = function(
-  departamento,
-  includeAllDepartament,
-  result
-) {
-  includeAllDepartament
-    ? (query =
-        "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%' or noticia.departamento IS NULL")
-    : (query =
-        "Select idnoticia,titulo,postado_em,noticia.departamento,nome as postado_por,imagem_endereco FROM noticia join colaborador on noticia.postado_por = colaborador.cpf where noticia.departamento like '%?%'");
-
-  sql.query(query, '"' + departamento + '"', function(err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      console.log("noticias : ", res);
-
-      result(null, res);
-    }
-  });
-};
-Noticia.updateById = function(id, noticia, result) {
+Noticia.updateById = function (id, noticia, result) {
   sql.query(
     "UPDATE noticia SET noticia = ? WHERE idnoticia = ?",
     [noticia.noticia, id],
-    function(err, res) {
+    function (err, res) {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -135,8 +111,8 @@ Noticia.updateById = function(id, noticia, result) {
     }
   );
 };
-Noticia.remove = function(id, result) {
-  sql.query("DELETE FROM noticia WHERE idnoticia = ?", [id], function(
+Noticia.remove = function (id, result) {
+  sql.query("DELETE FROM noticia WHERE idnoticia = ?", [id], function (
     err,
     res
   ) {

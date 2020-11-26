@@ -19,6 +19,18 @@ Contracheque.createContracheque = function (newContracheque, result) {
     }
   });
 };
+Contracheque.bulkCreateContracheque = function (contrachequesArray, result) {
+  let keys = Object.keys(contrachequesArray[0]);
+  let values = contrachequesArray.map(obj => keys.map(key => obj[key]));
+  let sqlString = 'INSERT INTO contracheque (' + keys.join(',') + ') VALUES ?';
+  sql.query(sqlString, [values], function (err, res) {
+    if (err) {
+      result(err, null);
+    } else {
+      result(null, true);
+    }
+  });
+}
 Contracheque.getContrachequeByCpf = function (cpf, result) {
   sql.query("Select * from contracheque where cpf = ? ", cpf, function (
     err,
