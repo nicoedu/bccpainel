@@ -6,7 +6,7 @@ function timestampToDate(timestamp) {
   var hora = date.getHours();
   var minuto = "0" + date.getMinutes();
   var formatedTime =
-    dia + "/" + mes + "/" + ano + " ás " + hora + ":" + minuto.substr(-2);
+    dia + "/" + mes + "/" + ano + " ás " + hora + "h" + minuto.substr(-2);
   return formatedTime;
 }
 

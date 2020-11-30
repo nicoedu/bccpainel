@@ -4,19 +4,9 @@ const NOTICIA_IMAGES_DIRECTORY =
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   //extra html you want to store.
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-4 post-img"><img src=' +
-    NOTICIA_IMAGES_DIRECTORY +
-    imgsrc +
-    '" alt="Card image cap" /></div><div class="col-8 card-body"><h2 class="card-title">' +
-    titulo +
-    '</h2>                     <button onclick="gotoNoticia(' +
-    idnoticia +
-    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>        </div>    </div>    <div class="card-footer text-muted">        Postado ' +
-    timestampToDate(date) +
-    " por " +
-    autor +
-    "    </div></div>"
-  );
+    `<div onclick="gotoNoticia(${idnoticia})" class="card col-md-3   noticia-card padding-card-responsive card-responsive"><div class="row" id="row-noticia" ><h2 class="card-title ">${titulo}</h2><div class="col-4 post-img"></div><div class="col-8 id="card-div" card-body">          <img id="card-image"  src=${NOTICIA_IMAGES_DIRECTORY}${imgsrc}" alt="Card image cap" />                  </div>    </div>    <div id="card-footer" class="card-footer text-muted">        Postado ${timestampToDate(date)}  <br><br> <button onclick="gotoNoticia(${idnoticia})" + 
+     class="btn btn-blue-inline ">Ler mais &rarr;</button>    </div></div>`
+  ); 
 }
 
 function timestampToDate(timestamp) {

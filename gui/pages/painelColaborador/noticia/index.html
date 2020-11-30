@@ -37,29 +37,30 @@
 
     <div class="container bg-white">
       <div class="noticiaHeader">
-        <p>
+        <h1>
           Notícias
-        </p>
+        </h1>
+        <div class="input-group input">
+          <input
+            id="searchInput"
+            type="text"
+            class="form-control col-md"
+            placeholder="Buscar notícias..."
+          />
+          <span class="input-group-btn">
+            <button id="searchButton" class="btn btn-secondary" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </span>
+        </div>
       </div>
-      <div class="row">
+      <div class="row  card-responsive ">
         <!-- Blog Entries Column -->
         <div class="col-md-3">
-          <div class="input-group">
-            <input
-              id="searchInput"
-              type="text"
-              class="form-control"
-              placeholder="Buscar..."
-            />
-            <span class="input-group-btn">
-              <button id="searchButton" class="btn btn-secondary" type="button">
-                <i class="fas fa-search"></i>
-              </button>
-            </span>
-          </div>
+
         </div>
         <div class="col-md-9">
-          <div class="row" id="noticia"></div>
+          <div  class="row align-cards" id="noticia"></div>
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
