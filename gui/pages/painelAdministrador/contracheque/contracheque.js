@@ -4,7 +4,8 @@
   // UPLOAD CLASS DEFINITION
   // ======================
 
-  var dropZone = document.getElementById("drop-zone");
+  var dropZonePDF = document.getElementById("drop-zone-PDF");
+  var dropZoneTXT = document.getElementById("drop-zone-TXT");
   var uploadPDF = document.getElementById("uploadPDF");
   var progressBar = document.getElementById("progressBar");
   var dropText = document.getElementById("dropText");
@@ -17,7 +18,8 @@
     var selectMes = document.getElementById("selectMes");
     var selectAno = document.getElementById("selectAno");
     timestamp = selectAno.value + "-" + selectMes.value;
-    dropZone.setAttribute("style", "display: flex");
+    dropZonePDF.setAttribute("style", "display: flex");
+    dropZoneTXT.setAttribute("style", "display: flex");
   });
 
   dropZone.addEventListener("click", function(e) {

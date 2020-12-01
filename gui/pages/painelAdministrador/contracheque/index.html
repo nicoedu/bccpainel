@@ -37,7 +37,7 @@
     <span id="nav"></span>
 
     <div class="container">
-      <div class="wrapper">
+      <div id="backgroundContracheque" class="wrapper">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h2>Contracheques</h2>
@@ -97,11 +97,18 @@
                 Inserir Arquivo
               </button>
             </div>
-            <div class="upload-drop-zone" id="drop-zone" style="display:none">
+            <div class="upload-drop-zone" id="drop-zone-PDF" style="display:none">
               <div class="iconFile"><i class="far fa-file-pdf"></i></div>
-              <p id="dropText">Clique ou arraste para inserir o arquivo</p>
+              <p id="dropText">Clique ou arraste para inserir o arquivo <strong>PDF</strong></p>
+            
+            </div>
+            <div class="upload-drop-zone" id="drop-zone-TXT" style="display:none">
+              <div class="iconFile"><i class="far fa-file"></i></div>
+              <p id="dropText2">Clique ou arraste para inserir o arquivo <strong> TXT</strong></p>
+            
             </div>
           </div>
+          
           <div class="progressArea visibilityprogressArea" id="progressBar">
             <p id="uploadStatus"></p>
             <p id="uploadWarning"></p>

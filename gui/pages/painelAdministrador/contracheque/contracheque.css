@@ -68,9 +68,13 @@
 }
 
 #uploadWarning {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .uploadPDF {
   display: none;
+}
+
+#backgroundContracheque {
+  height: 120vh !important;
 }
