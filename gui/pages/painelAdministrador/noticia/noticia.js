@@ -1,14 +1,7 @@
-function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
+function postStructure(idnoticia, imgsrc, titulo, date) {
+
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row card-content"><div class="col-5 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image/?filename=' +
-    imgsrc +
-    '" alt="Card image cap" /></div><div class="col-7 card-body"><h5 class="card-title">' +
-    titulo +
-    '</h5>                     <button onclick="gotoNoticia(' +
-    idnoticia +
-    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>    </div>   </div>  <div class="card-footer text-muted">        Postado ' +
-    timestampToDate(date) +
-    "    </div></div>"
+    `<div onclick="gotoNoticia(${idnoticia})" class="card col-md-5 noticia-card card-responsive"><h5 class="card-title">${titulo}</h5><div class="row card-content"><div class="post-img"><img src="https://painel.bbcvigilancia.com.br/api/image/?filename=${imgsrc}" alt="Card image cap" /></div></div><div class="card-body">                     <button onclick="gotoNoticia(${idnoticia})" class="btn btn-blue-inline">Ler mais &rarr;</button>    </div>     <div class="card-footer text-muted">        Postado ${timestampToDate(date)}    </div></div>`
   );
 }
 
@@ -42,7 +35,6 @@ function putPost(optional = "") {
         idnoticia,
         imagem_endereco,
         postado_em,
-        texto,
         titulo
       }) => {
         console.log(titulo, imagem_endereco);
@@ -50,7 +42,6 @@ function putPost(optional = "") {
           idnoticia,
           imagem_endereco,
           titulo,
-          texto,
           postado_em,
         );
       }

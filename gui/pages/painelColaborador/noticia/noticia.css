@@ -63,10 +63,14 @@
 .card {
   padding: 0;
   margin: 10px;
+  min-height: 150px;
+
 }
 
 .card-content {
-  min-height: 150px;
+  margin: 0 auto;
+  height: 100%;
+
 }
 
 .card:hover {
@@ -81,11 +85,10 @@
   text-overflow: ellipsis;
 }
 
-.post-img img {
-  min-height: 90%;
-  max-width: 100%;
+.post-img img{
+  margin: 5%;
+  max-width: 90%;
   max-height: 90%;
-  padding: 5%;
 }
 
 .btn-blue-simple {
@@ -105,31 +108,23 @@
   font-weight: bold;
 }
 
-.noticiaHeader a {
-  position: absolute;
-  right: 10vw;
-}
+
 
 .dropdown-menu {
   max-width: 100vw;
 }
-#card-footer {
-  position: absolute;
-  bottom: 0px;
-}
+
 
 #card-image {
   display: flex;
   align-items: center;
 }
 
-#card-div {
-  position: absolute;
-  top: 1000px;
+.card-body {
+  margin: 0 auto;
 }
-#row-noticia {
-  margin-bottom: 200px;
-}
+
+
 
 .align-cards {
   margin: 0 auto;
@@ -141,6 +136,8 @@
   font-size: 16px !important;
   font-weight: 400 !important;
 }
+
+
 
 /* Styled Multiselect */
 .bootstrap-select .bs-ok-default::after {
@@ -157,13 +154,15 @@
   margin: auto;
 }
 .card-title {
-  font-size: 1.2em;
+  text-transform: capitalize;
+  font-size: 1.7em;
   margin: 0 auto;
+  padding-top: 10px;
 }
 
 #postado_em {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.2em;
 }
 
 #imagem {
@@ -171,17 +170,28 @@
   margin: 0 auto !important;
 }
 
+.img-responsive{
+  max-width: 100%;
+  margin: 20px;
+}
+
+.noticia-wrapper{
+  padding-top: 30px;
+}
+
+.noticia-center{
+  margin: 0 auto;
+}
+
 @media (max-width: 600px) {
   .card-responsive {
     margin: auto;
     max-width: 100vw;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
   .wrapper {
     margin: auto;
-  }
-  .padding-card-responsive {
-    margin-bottom: 2vh;
-    margin-top: 1vh;
   }
   .card-title {
     font-size: 25px;

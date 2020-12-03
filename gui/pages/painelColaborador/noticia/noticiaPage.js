@@ -25,7 +25,7 @@ function getNoticiaPorId(id) {
     var postado_em = document.getElementById("postado_em");
     var imagem = document.getElementById("imagem");
     imagem.src =
-      "/home/nicoedu/Documents/BBC/meu/backend/noticia/" +
+      "https://painel.bbcvigilancia.com.br/api/image/?filename=" +
       noticia.imagem_endereco;
     titulo.innerHTML = noticia.titulo;
     texto.innerHTML = noticia.texto;
