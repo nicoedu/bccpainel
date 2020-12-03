@@ -1,4 +1,3 @@
-const pdfDataController = require('../controller/pdfDataController');
 
 const fs = require('fs');
 const User = require('../models/User');

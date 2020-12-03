@@ -1,177 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link
-      rel="icon"
-      href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon-150x150.png"
-      sizes="32x32"
-    />
-    <link
-      rel="icon"
-      href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon.png"
-      sizes="192x192"
-    />
 
-    <title>Painel do Administrador</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon-150x150.png"
+    sizes="32x32" />
+  <link rel="icon" href="http://www.bbcvigilancia.com.br/wp-content/uploads/2019/04/favicon.png" sizes="192x192" />
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../../dist/css/bootstrap.min.css" />
+  <title>Painel do Administrador</title>
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="../../../dist/css/fontawesome.min.css" />
-    <link href="../../../dist/css/solid.min.css" rel="stylesheet" />
-    <link href="usuario.css" rel="stylesheet" />
-    <link href="../../../custom.css" rel="stylesheet" />
-  </head>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="../../../dist/css/bootstrap.min.css" />
 
-  <body>
-    <span id="nav"></span>
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="../../../dist/css/fontawesome.min.css" />
+  <link href="../../../dist/css/solid.min.css" rel="stylesheet" />
+  <link href="usuario.css" rel="stylesheet" />
+  <link href="../../../custom.css" rel="stylesheet" />
+</head>
 
-    <div class="container bg-white">
-      <div class="wrapper">
-        <div class="heading">
-          <h2>Meus Dados</h2>
-        </div>
-        <div class="dataBox">
-          <h2>Pessoais</h2>
-          <div class="row">
-            <div class="col-md-3">
-              <label>CPF</label>
-              <p id="cpf"></p>
-            </div>
-            <div class="col-md-3">
-              <label>Matricula</label>
-              <p id="matricula"></p>
-            </div>
-            <div class="col-md-3">
-              <label>Nome completo</label>
-              <p id="nome"></p>
-            </div>
+<body>
+  <span id="nav"></span>
 
-            <div class="col-md-3">
-              <label>Cargo</label>
-              <p id="cargo"></p>
-            </div>
-            <div class="col-md-3">
-              <label>Nº de Departamento</label>
-              <p id="departamento"></p>
-            </div>
-          </div>
-          <h2>Acesso</h2>
-          <div class="row">
-            <div class="col-md-3">
-              <label>CPF</label>
-              <p id="user-acesso"></p>
-            </div>
-            <div class="col-md-3">
-              <label>Senha</label>
-              <p>********</p>
-            </div>
-            <div class="col-md-3">
-              <button
-                class="btn btn-blue-simple"
-                data-toggle="modal"
-                data-target="#modalExemplo"
-              >
-                Alterar
-              </button>
-            </div>
-          </div>
-        </div>
+  <div class="container bg-white">
+    <div class="wrapper">
+      <div class="heading">
+        <h2>Meus Dados</h2>
       </div>
-    </div>
-    <!-- Botão para acionar modal -->
+      <div class="dataBox">
+        <h2>Pessoais</h2>
+        <div class="row">
+          <div class="col-md-3">
+            <label>CPF</label>
+            <p id="cpf"></p>
+          </div>
+          <div class="col-md-4">
+            <label>Nome completo</label>
+            <p id="nome"></p>
+          </div>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="modalExemplo"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Fechar"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+        </div>
+        <h2>Acesso</h2>
+        <div class="row">
+          <div class="col-md-3">
+            <label>CPF</label>
+            <p id="user-acesso"></p>
           </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-12">
-                <input
-                  type="password"
-                  name="username"
-                  id="password-old"
-                  placeholder="Senha antiga"
-                  required
-                  autofocus
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <input
-                  type="password"
-                  name="password"
-                  id="password-new"
-                  placeholder="Senha nova"
-                  required
-                />
-              </div>
-              <div class="col-md-6">
-                <input
-                  type="password"
-                  name="password"
-                  id="password-new2"
-                  placeholder="Redigite a nova senha"
-                  required
-                />
-              </div>
-            </div>
+          <div class="col-md-3">
+            <label>Senha</label>
+            <p>********</p>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Fechar
-            </button>
-            <button
-              type="button"
-              class="btn btn-blue-simple"
-              onclick="mudarSenha()"
-            >
-              Salvar alterações
+          <div class="col-md-3">
+            <button class="btn btn-blue-simple" data-toggle="modal" data-target="#modalExemplo">
+              Alterar
             </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- /.container -->
+  </div>
+  <!-- Botão para acionar modal -->
 
-    <!-- Bootstrap core JavaScript
+  <!-- Modal -->
+  <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="password" name="username" id="password-old" placeholder="Senha antiga" required autofocus />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="password" name="password" id="password-new" placeholder="Senha nova" required />
+            </div>
+            <div class="col-md-6">
+              <input type="password" name="password" id="password-new2" placeholder="Redigite a nova senha" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Fechar
+          </button>
+          <button type="button" class="btn btn-blue-simple" onclick="mudarSenha()">
+            Salvar alterações
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
-    <script src="../../../dist/js/bootstrap.min.js"></script>
-    <script src="../general/generalScript.js"></script>
-    <script src="usuario.js"></script>
-  </body>
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../dist/js/jquery-3.4.1.min.js"></script>
+  <script src="../../../dist/js/bootstrap.min.js"></script>
+  <script src="../general/generalScript.js"></script>
+  <script src="usuario.js"></script>
+</body>
+
 </html>

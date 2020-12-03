@@ -14,15 +14,14 @@ function getNoticiaPorId(id) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://painel.bbcvigilancia.com.br/api/noticia?id=" + id,
+    "http://localhost:3333/api/noticia?id=" + id,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
-  xhr.onload = function() {
+  xhr.onload = function () {
     var noticia = JSON.parse(this.responseText)[0];
     var titulo = document.getElementById("titulo");
     var texto = document.getElementById("texto");
-    var postado_por = document.getElementById("postado_por");
     var postado_em = document.getElementById("postado_em");
     var imagem = document.getElementById("imagem");
     imagem.src =
@@ -30,33 +29,33 @@ function getNoticiaPorId(id) {
       noticia.imagem_endereco;
     titulo.innerHTML = noticia.titulo;
     texto.innerHTML = noticia.texto;
-    postado_por.innerHTML += noticia.postado_por;
     postado_em.innerHTML += timestampToDate(noticia.postado_em);
   };
-  xhr.onerror = function(event) {
+  xhr.onerror = function (event) {
     console.log(event);
   };
   xhr.send();
 }
 
-function deleteNotinia(id){
+function deleteNotinia(id) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "DELETE",
-    "https://painel.bbcvigilancia.com.br/api/noticia?id="+ id, 
+    "http://localhost:3333/api/noticia?id=" + id,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onload = function() { window.location = "./index.html"; };
-  xhr.onerror = function(event) { 
-    alert("Falha ao remover notícia, tente novamente em alguns segundos."); 
-    console.log(event); };
+  xhr.onload = function () { window.location = "./index.html"; };
+  xhr.onerror = function (event) {
+    alert("Falha ao remover notícia, tente novamente em alguns segundos.");
+    console.log(event);
+  };
   xhr.send(
-    )
+  )
 }
 
-$(function() {
+$(function () {
   const url = new URL(window.location.href);
   const id = url.searchParams.get("id").toString();
   getNoticiaPorId(id);

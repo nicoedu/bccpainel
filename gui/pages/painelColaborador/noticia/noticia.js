@@ -1,19 +1,16 @@
-const NOTICIA_IMAGES_DIRECTORY =
-  "";
+
 
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   //extra html you want to store.
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-4 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image?filename=' +
+    '<div class="card col-md-5 noticia-card"><div class="row card-content"><div class="col-5 post-img"><img src="http://localhost:3333/api/image/?filename=' +
     imgsrc +
-    '" alt="Card image cap" /></div><div class="col-8 card-body"><h2 class="card-title">' +
+    '" alt="Card image cap" /></div><div class="col-7 card-body"><h5 class="card-title">' +
     titulo +
-    '</h2>                     <button onclick="gotoNoticia(' +
+    '</h5>                     <button onclick="gotoNoticia(' +
     idnoticia +
-    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>        </div>    </div>    <div class="card-footer text-muted">        Postado ' +
+    ')" class="btn btn-blue-inline">Ler mais &rarr;</button>    </div>   </div>  <div class="card-footer text-muted">        Postado ' +
     timestampToDate(date) +
-    " por " +
-    autor +
     "    </div></div>"
   );
 }
@@ -28,12 +25,12 @@ function putPost(optional = "") {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://painel.bbcvigilancia.com.br/api/noticias" + optional,
+    "http://localhost:3333/api/noticias" + optional,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   var noticiasElement = document.getElementById("noticia");
-  xhr.onload = function() {
+  xhr.onload = function () {
     noticias = JSON.parse(this.responseText);
     noticias = noticias.noticias;
     noticiasElement.innerHTML = "";
@@ -42,7 +39,6 @@ function putPost(optional = "") {
         idnoticia,
         imagem_endereco,
         postado_em,
-        postado_por,
         texto,
         titulo
       }) => {
@@ -52,12 +48,11 @@ function putPost(optional = "") {
           titulo,
           texto,
           postado_em,
-          postado_por
         );
       }
     );
   };
-  xhr.onerror = function(event) {
+  xhr.onerror = function (event) {
     console.log(event);
   };
   xhr.send();
@@ -67,7 +62,7 @@ function gotoNoticia(id) {
   window.location = "./noticiaPage.html?id=" + id;
 }
 
-$(function() {
+$(function () {
   $("#searchButton").on("click", () => {
     var searchInput = document.getElementById("searchInput");
     searchURL = "/search/" + searchInput.value;

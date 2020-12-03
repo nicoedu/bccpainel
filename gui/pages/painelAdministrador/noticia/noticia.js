@@ -1,6 +1,6 @@
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row"><div class="col-5 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image?filename=' +
+    '<div class="card col-md-5 noticia-card"><div class="row card-content"><div class="col-5 post-img"><img src="http://localhost:3333/api/image/?filename=' +
     imgsrc +
     '" alt="Card image cap" /></div><div class="col-7 card-body"><h5 class="card-title">' +
     titulo +
@@ -8,8 +8,6 @@ function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
     idnoticia +
     ')" class="btn btn-blue-inline">Ler mais &rarr;</button>    </div>   </div>  <div class="card-footer text-muted">        Postado ' +
     timestampToDate(date) +
-    " por " +
-    autor +
     "    </div></div>"
   );
 }
@@ -24,13 +22,13 @@ function putPost(optional = "") {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://painel.bbcvigilancia.com.br/api/noticias" + optional,
+    "http://localhost:3333/api/noticias" + optional,
     true
   );
 
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   var noticiasElement = document.getElementById("noticia");
-  xhr.onload = function() {
+  xhr.onload = function () {
     noticias = JSON.parse(this.responseText);
     noticias = noticias.noticias;
     console.log(noticias);
@@ -44,7 +42,6 @@ function putPost(optional = "") {
         idnoticia,
         imagem_endereco,
         postado_em,
-        postado_por,
         texto,
         titulo
       }) => {
@@ -55,12 +52,11 @@ function putPost(optional = "") {
           titulo,
           texto,
           postado_em,
-          postado_por
         );
       }
     );
   };
-  xhr.onerror = function(event) {
+  xhr.onerror = function (event) {
     console.log(event);
   };
   xhr.send();
@@ -70,51 +66,12 @@ function gotoNoticia(id) {
   window.location = "./noticiaPage.html?id=" + id;
 }
 
-function putOptions(departamentos, departamento) {
-  departamentos.innerHTML +=
-    '<option value="' +
-    departamento.iddepartamento +
-    '">' +
-    departamento.nomedepartamento +
-    "</option>";
-}
-
-function getListaDepartamento(callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "GET",
-    "https://painel.bbcvigilancia.com.br/api/departamentos",
-    true
-  );
-  xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-      callback(true, xhr.responseText);
-    }
-  };
-  xhr.onerror = function(event) {
-    console.log(event);
-    callback(false, event);
-  };
-  xhr.send();
-}
-
-$(function() {
-  getListaDepartamento((sucess, response) => {
-    if (sucess) {
-      var departamentos = document.getElementById("multiselect");
-      JSON.parse(response).map(departamento => {
-        putOptions(departamentos, departamento);
-      });
-      departamentos.classList = "selectpicker";
-      $(".selectpicker").selectpicker();
-    }
-  });
-
+$(function () {
   $("#searchButton").on("click", () => {
     var searchInput = document.getElementById("searchInput");
     searchURL = "/search/" + searchInput.value;
     putPost(searchURL);
   });
+  console.log("teste")
   putPost();
 });

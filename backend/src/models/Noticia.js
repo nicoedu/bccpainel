@@ -83,7 +83,7 @@ Noticia.getAllNoticia = function (page, result) {
               next: page < numPages - 1 ? page + 1 : undefined
             };
             result(null, responsePayload);
-          } else
+          } else {
             responsePayload.pagination = {
               err:
                 "queried page " +
@@ -91,7 +91,8 @@ Noticia.getAllNoticia = function (page, result) {
                 " is >= to maximum page number " +
                 numPages
             };
-          result(err, null);
+            result(err, null);
+          }
         }
       }
     );

@@ -5,10 +5,10 @@ function submitLogin() {
     return;
   }
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://painel.bbcvigilancia.com.br/api/login", true);
+  xhr.open("POST", "http://localhost:3333/api/login", true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
-  xhr.onload = function() {
+  xhr.onload = function () {
     if (this.status != 200) {
       var usernameBox = document.getElementById("username");
       var passwordBox = document.getElementById("password");
@@ -29,7 +29,7 @@ function submitLogin() {
       window.location = "../painelColaborador/noticia/index.html";
     }
   };
-  xhr.onerror = function(event) {
+  xhr.onerror = function (event) {
     console.log(event);
   };
   xhr.send(JSON.stringify({ username: username, password: password }));

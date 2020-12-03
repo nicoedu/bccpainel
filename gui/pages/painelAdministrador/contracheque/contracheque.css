@@ -28,6 +28,8 @@
   border-radius: 20px;
   padding: auto;
   text-align: center;
+  margin-bottom: 10px;
+
 }
 .upload-drop-zone .iconFile {
   font-size: 4em;
@@ -68,9 +70,13 @@
 }
 
 #uploadWarning {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .uploadPDF {
   display: none;
+}
+
+#backgroundContracheque {
+  height: 120vh !important;
 }

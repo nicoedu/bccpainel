@@ -1,5 +1,5 @@
 var pdfBase64;
-$(function() {
+$(function () {
   $("#datebutton").click(() => {
     var selectMes = document.getElementById("selectMes");
     var selectAno = document.getElementById("selectAno");
@@ -56,13 +56,13 @@ function getPdfFile(date) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://painel.bbcvigilancia.com.br/api/contracheque/" +
-      date +
-      "/?cpf=" +
-      cpf
+    "http://localhost:3333/api/contracheque/" +
+    date +
+    "/?cpf=" +
+    cpf
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
-  xhr.onload = function() {
+  xhr.onload = function () {
     response = JSON.parse(this.response);
     if (response.length == 0) {
       buttonDownload.style = "display: none";
@@ -73,18 +73,18 @@ function getPdfFile(date) {
     var xhr2 = new XMLHttpRequest();
     xhr2.open(
       "GET",
-      //"https://painel.bbcvigilancia.com.br/api/downloadpdf?cpf=" + cpf + "&date=" + date
-      "https://painel.bbcvigilancia.com.br/api/downloadpdf?filename=" +
-        response[0].arquivo_endereco
+      //"http://localhost:3333/api/downloadpdf?cpf=" + cpf + "&date=" + date
+      "http://localhost:3333/api/downloadpdf?filename=" +
+      response[0].arquivo_endereco
     );
     xhr2.setRequestHeader("auth-token", sessionStorage.getItem("token"));
     xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr2.onload = function() {
+    xhr2.onload = function () {
       pdfBase64 = this.response;
       var pdfAsArray = toPDFObj(pdfBase64);
       var loadingTask = pdfjsLib.getDocument(pdfAsArray);
       loadingTask.promise.then(
-        function(pdf) {
+        function (pdf) {
           pdfDocument = pdf;
 
           buttonDownload.style = "display: block";
@@ -92,7 +92,7 @@ function getPdfFile(date) {
           errorArea.style = "display: none";
           // Fetch the first page
           var pageNumber = 1;
-          pdf.getPage(pageNumber).then(function(page) {
+          pdf.getPage(pageNumber).then(function (page) {
             console.log("Page loaded");
 
             var scale = 1.5;
@@ -110,17 +110,17 @@ function getPdfFile(date) {
               viewport: viewport
             };
             var renderTask = page.render(renderContext);
-            renderTask.promise.then(function() {
+            renderTask.promise.then(function () {
               console.log("Page rendered");
             });
           });
         },
-        function(reason) {
+        function (reason) {
           console.error(reason);
         }
       );
     };
-    xhr2.onerror = function(event) {
+    xhr2.onerror = function (event) {
       buttonDownload.style = "display: none";
       pdfArea.style = "display: none";
       errorArea.style = "display: block";

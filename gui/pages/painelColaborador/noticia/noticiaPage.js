@@ -6,7 +6,7 @@ function timestampToDate(timestamp) {
   var hora = date.getHours();
   var minuto = "0" + date.getMinutes();
   var formatedTime =
-    dia + "/" + mes + "/" + ano + " ás " + hora + ":" + minuto.substr(-2);
+    dia + "/" + mes + "/" + ano + " ás " + hora + "h" + minuto.substr(-2);
   return formatedTime;
 }
 
@@ -14,32 +14,30 @@ function getNoticiaPorId(id) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://painel.bbcvigilancia.com.br/api/noticia?id=" + id,
+    "http://localhost:3333/api/noticia?id=" + id,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
-  xhr.onload = function() {
+  xhr.onload = function () {
     var noticia = JSON.parse(this.responseText)[0];
     var titulo = document.getElementById("titulo");
     var texto = document.getElementById("texto");
-    var postado_por = document.getElementById("postado_por");
     var postado_em = document.getElementById("postado_em");
     var imagem = document.getElementById("imagem");
     imagem.src =
-      "https://painel.bbcvigilancia.com.br/api/image?filename=" +
+      "/home/nicoedu/Documents/BBC/meu/backend/noticia/" +
       noticia.imagem_endereco;
     titulo.innerHTML = noticia.titulo;
     texto.innerHTML = noticia.texto;
-    postado_por.innerHTML += noticia.postado_por;
     postado_em.innerHTML += timestampToDate(noticia.postado_em);
   };
-  xhr.onerror = function(event) {
+  xhr.onerror = function (event) {
     console.log(event);
   };
   xhr.send();
 }
 
-$(function() {
+$(function () {
   const url = new URL(window.location.href);
   getNoticiaPorId(url.searchParams.get("id"));
 });
