@@ -56,7 +56,7 @@ function getPdfFile(date) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "http://localhost:3333/api/contracheque/" +
+    "https://painel.bbcvigilancia.com.br/api/contracheque/" +
     date +
     "/?cpf=" +
     cpf
@@ -73,8 +73,8 @@ function getPdfFile(date) {
     var xhr2 = new XMLHttpRequest();
     xhr2.open(
       "GET",
-      //"http://localhost:3333/api/downloadpdf?cpf=" + cpf + "&date=" + date
-      "http://localhost:3333/api/downloadpdf?filename=" +
+      //"https://painel.bbcvigilancia.com.br/api/downloadpdf?cpf=" + cpf + "&date=" + date
+      "https://painel.bbcvigilancia.com.br/api/downloadpdf?filename=" +
       response[0].arquivo_endereco
     );
     xhr2.setRequestHeader("auth-token", sessionStorage.getItem("token"));

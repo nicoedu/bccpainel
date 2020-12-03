@@ -5,7 +5,7 @@ function submitLogin() {
     return;
   }
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:3333/api/login", true);
+  xhr.open("POST", "https://painel.bbcvigilancia.com.br/api/login", true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {

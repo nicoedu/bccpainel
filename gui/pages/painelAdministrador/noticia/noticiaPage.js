@@ -14,7 +14,7 @@ function getNoticiaPorId(id) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "http://localhost:3333/api/noticia?id=" + id,
+    "https://painel.bbcvigilancia.com.br/api/noticia?id=" + id,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
@@ -41,7 +41,7 @@ function deleteNotinia(id) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "DELETE",
-    "http://localhost:3333/api/noticia?id=" + id,
+    "https://painel.bbcvigilancia.com.br/api/noticia?id=" + id,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));

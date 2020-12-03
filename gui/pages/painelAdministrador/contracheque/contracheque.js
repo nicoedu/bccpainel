@@ -146,7 +146,7 @@ function startUpload(formData) {
   var progressBar = document.querySelector(".progress-bar");
   var uploadStatus = document.getElementById("uploadStatus");
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:3333/api/upload", true);
+  xhr.open("POST", "https://painel.bbcvigilancia.com.br/api/upload", true);
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
 
   uploadStatus.innerHTML = "O arquivo está sendo enviado. Aguarde...";

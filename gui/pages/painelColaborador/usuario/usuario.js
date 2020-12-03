@@ -7,7 +7,7 @@ function getUserByCpf(cpf) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "http://localhost:3333/api/user?cpf=" + cpf,
+    "https://painel.bbcvigilancia.com.br/api/user?cpf=" + cpf,
     true
   );
   xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
@@ -35,7 +35,7 @@ function mudarSenha() {
       var xhr = new XMLHttpRequest();
       xhr.open(
         "POST",
-        "http://localhost:3333/api/updatePass",
+        "https://painel.bbcvigilancia.com.br/api/updatePass",
         true
       );
       xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));

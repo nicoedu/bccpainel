@@ -11,7 +11,7 @@ function sendImage() {
 
   if (imagem_endereco != null) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3333/api/image", true);
+    xhr.open("POST", "https://painel.bbcvigilancia.com.br/api/image", true);
     xhr.setRequestHeader("auth-token", sessionStorage.getItem("token"));
     xhr.onload = function (event) {
       sendNoticia(imagem_endereco);
@@ -39,7 +39,7 @@ function sendNoticia(imagem_endereco = null) {
   };
 
   let xhr2 = new XMLHttpRequest();
-  xhr2.open("POST", "http://localhost:3333/api/noticia", true);
+  xhr2.open("POST", "https://painel.bbcvigilancia.com.br/api/noticia", true);
   xhr2.setRequestHeader("Content-type", "application/json");
   xhr2.setRequestHeader("auth-token", sessionStorage.getItem("token"));
   xhr2.onload = function (event) {

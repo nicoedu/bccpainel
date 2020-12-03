@@ -1,6 +1,6 @@
 function postStructure(idnoticia, imgsrc, titulo, texto, date, autor) {
   return (
-    '<div class="card col-md-5 noticia-card"><div class="row card-content"><div class="col-5 post-img"><img src="http://localhost:3333/api/image/?filename=' +
+    '<div class="card col-md-5 noticia-card"><div class="row card-content"><div class="col-5 post-img"><img src="https://painel.bbcvigilancia.com.br/api/image/?filename=' +
     imgsrc +
     '" alt="Card image cap" /></div><div class="col-7 card-body"><h5 class="card-title">' +
     titulo +
@@ -22,7 +22,7 @@ function putPost(optional = "") {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "http://localhost:3333/api/noticias" + optional,
+    "https://painel.bbcvigilancia.com.br/api/noticias" + optional,
     true
   );
 
